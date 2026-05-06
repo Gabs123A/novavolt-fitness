@@ -1,10 +1,9 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NovaVolt Fitness — Power Your Potential</title>
-<meta name="description" content="Reach your peak performance with NovaVolt Fitness. Shop professional-grade equipment, supplements, and book sessions with certified coaches.">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -28,31 +27,28 @@
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
     overflow-x: hidden;
+    cursor: none;
   }
 
-  /* Custom Cursor - Hidden on touch devices */
-  @media (min-width: 1024px) {
-    body { cursor: none; }
-    .cursor {
-      width: 12px; height: 12px;
-      background: var(--volt);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9999;
-      transition: transform 0.1s ease;
-      mix-blend-mode: difference;
-    }
-    .cursor-ring {
-      width: 36px; height: 36px;
-      border: 1px solid var(--volt);
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none;
-      z-index: 9998;
-      transition: transform 0.18s ease, width 0.2s, height 0.2s;
-      opacity: 0.5;
-    }
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--volt);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--volt);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.18s ease, width 0.2s, height 0.2s;
+    opacity: 0.5;
   }
 
   nav {
@@ -71,7 +67,7 @@
     text-decoration: none;
   }
   .nav-logo span { color: var(--volt); }
-  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.85rem;
@@ -82,21 +78,6 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--volt); }
-  
-  /* Mobile Menu Toggle */
-  .menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 1001;
-  }
-  .menu-toggle span {
-    width: 30px; height: 2px;
-    background: var(--white);
-    transition: 0.3s;
-  }
-
   .nav-cta {
     background: var(--volt);
     color: var(--dark) !important;
@@ -104,6 +85,7 @@
     font-weight: 700 !important;
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   }
+  .nav-cta:hover { background: var(--white); color: var(--dark) !important; }
 
   .hero {
     min-height: 100vh;
@@ -178,16 +160,40 @@
     padding: 16px 32px;
     text-decoration: none;
     clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-    transition: 0.2s;
+    transition: background 0.2s, transform 0.2s;
   }
   .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
-  
+  .btn-secondary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,232,232,0.3);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--volt); border-color: var(--volt); }
+  .hero-stats { display: flex; gap: 40px; margin-top: 60px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--volt);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
   .hero-visual {
     position: relative; z-index: 2;
     display: flex; align-items: center; justify-content: center;
     padding: 120px 48px 80px 0;
   }
-
   .hero-card-stack { position: relative; width: 340px; height: 420px; }
   .product-card-hero {
     position: absolute;
@@ -197,9 +203,48 @@
     overflow: hidden;
     transition: transform 0.4s ease;
   }
-  .product-card-hero:nth-child(1) { width: 260px; height: 320px; top: 60px; right: 0; transform: rotate(4deg); z-index: 1; }
-  .product-card-hero:nth-child(2) { width: 220px; height: 280px; top: 20px; left: 0; transform: rotate(-3deg); z-index: 2; }
-  .product-card-hero:nth-child(3) { width: 240px; height: 300px; top: 100px; left: 40px; transform: rotate(1deg); z-index: 3; }
+  .product-card-hero:nth-child(1) {
+    width: 260px; height: 320px;
+    top: 60px; right: 0;
+    transform: rotate(4deg);
+    background: linear-gradient(135deg, #1a1a1a, #0f1a00);
+    border-color: rgba(200,255,0,0.25);
+    z-index: 1;
+  }
+  .product-card-hero:nth-child(2) {
+    width: 220px; height: 280px;
+    top: 20px; left: 0;
+    transform: rotate(-3deg);
+    background: linear-gradient(135deg, #1a0a00, #1a1a1a);
+    border-color: rgba(255,77,28,0.2);
+    z-index: 2;
+  }
+  .product-card-hero:nth-child(3) {
+    width: 240px; height: 300px;
+    top: 100px; left: 40px;
+    transform: rotate(1deg);
+    background: var(--dark3);
+    z-index: 3;
+  }
+  .card-hero-icon { font-size: 4rem; text-align: center; padding: 30px 20px 10px; }
+  .card-hero-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--volt);
+    padding: 0 20px;
+  }
+  .card-hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--white);
+    padding: 4px 20px;
+  }
+  .card-hero-price { font-size: 0.9rem; color: var(--muted); padding: 4px 20px 20px; }
+  .hero-card-stack:hover .product-card-hero:nth-child(1) { transform: rotate(6deg) translate(10px, -5px); }
+  .hero-card-stack:hover .product-card-hero:nth-child(2) { transform: rotate(-5deg) translate(-10px, 5px); }
+  .hero-card-stack:hover .product-card-hero:nth-child(3) { transform: rotate(1deg) translateY(-10px); }
 
   .marquee-section {
     background: var(--volt);
@@ -219,6 +264,7 @@
     padding: 0 32px;
     flex-shrink: 0;
   }
+  .marquee-dot { color: rgba(0,0,0,0.3); padding: 0 8px; }
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -234,6 +280,11 @@
     margin-bottom: 12px;
     display: flex; align-items: center; gap: 12px;
   }
+  .section-label::before {
+    content: '';
+    display: block; width: 30px; height: 1px;
+    background: var(--volt);
+  }
   .section-title {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(2.5rem, 5vw, 4.5rem);
@@ -242,102 +293,556 @@
     margin-bottom: 16px;
   }
   .section-title .accent { color: var(--volt); }
+  .section-desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(232,232,232,0.6);
+    max-width: 520px;
+    margin-bottom: 56px;
+  }
 
-  /* Product Cards */
+  .products-section { background: var(--dark2); }
+  .products-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 48px;
+  }
+  .filter-tabs { display: flex; gap: 4px; }
+  .filter-tab {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-tab.active, .filter-tab:hover {
+    background: var(--volt);
+    color: var(--dark);
+    border-color: var(--volt);
+  }
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2px;
   }
   .product-card {
     background: var(--dark3);
     border: 1px solid rgba(255,255,255,0.05);
     position: relative;
     overflow: hidden;
-    transition: 0.3s;
+    cursor: pointer;
+    transition: border-color 0.3s, transform 0.3s;
   }
-  .product-img-container {
-    height: 250px;
-    overflow: hidden;
+  .product-card:hover {
+    border-color: rgba(200,255,0,0.4);
+    transform: translateY(-4px);
+    z-index: 2;
+  }
+  .product-badge {
+    position: absolute; top: 14px; left: 14px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    z-index: 2;
+  }
+  .badge-new { background: var(--volt); color: var(--dark); }
+  .badge-sale { background: var(--accent); color: var(--white); }
+  .product-img {
+    height: 200px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
+    background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(200,255,0,0.03));
+    transition: background 0.3s;
     position: relative;
-    background: #222;
   }
-  .product-img-container img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: 0.5s;
-    filter: grayscale(0.5);
+  .product-card:hover .product-img {
+    background: linear-gradient(135deg, rgba(200,255,0,0.05), rgba(200,255,0,0.02));
   }
-  .product-card:hover .product-img-container img {
-    transform: scale(1.1);
-    filter: grayscale(0);
+  .product-add-btn {
+    position: absolute; bottom: 10px; right: 10px;
+    width: 36px; height: 36px;
+    background: var(--volt);
+    color: var(--dark);
+    border: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    display: flex; align-items: center; justify-content: center;
   }
+  .product-card:hover .product-add-btn { opacity: 1; transform: scale(1.05); }
+  .product-info { padding: 20px; }
+  .product-cat {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin-bottom: 6px;
+  }
+  .product-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .product-price-row {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--volt);
+  }
+  .product-old-price {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: line-through;
+  }
+  .rating-stars { color: #f5c518; }
 
+  .categories-section { background: var(--dark); }
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .category-tile {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .category-tile:first-child { grid-row: span 2; height: auto; }
+  .cat-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 6rem;
+    transition: transform 0.5s ease, filter 0.3s;
+    filter: brightness(0.6);
+  }
+  .category-tile:hover .cat-bg { transform: scale(1.08); filter: brightness(0.4); }
+  .cat-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+  }
+  .cat-content { position: absolute; bottom: 24px; left: 24px; right: 24px; }
+  .cat-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+  .cat-count { font-size: 0.8rem; color: rgba(232,232,232,0.5); letter-spacing: 0.1em; }
+  .cat-arrow {
+    position: absolute; top: 24px; right: 24px;
+    width: 36px; height: 36px;
+    background: var(--volt);
+    color: var(--dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: opacity 0.2s, transform 0.2s;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .category-tile:hover .cat-arrow { opacity: 1; transform: translateX(0); }
+
+  .coaches-section {
+    background: linear-gradient(135deg, var(--dark2), var(--dark));
+    position: relative; overflow: hidden;
+  }
+  .coaches-section::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,255,0,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .coaches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .coach-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .coach-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--volt), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .coach-card:hover { border-color: rgba(200,255,0,0.3); transform: translateY(-6px); }
+  .coach-card:hover::before { opacity: 1; }
+  .coach-avatar {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--volt), var(--volt-dim));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    border: 2px solid rgba(200,255,0,0.3);
+  }
+  .coach-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .coach-specialty {
+    font-size: 0.8rem;
+    color: var(--volt);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .coach-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(232,232,232,0.6);
+    margin-bottom: 20px;
+  }
+  .coach-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .coach-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    background: rgba(200,255,0,0.08);
+    border: 1px solid rgba(200,255,0,0.2);
+    color: var(--volt);
+  }
+  .coach-btn {
+    display: block; width: 100%;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(200,255,0,0.3);
+    color: var(--volt);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .coach-btn:hover { background: var(--volt); color: var(--dark); }
+
+  .booking-section {
+    background: var(--dark2);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
   .booking-form-wrapper {
     background: var(--dark3);
-    padding: 40px;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(200,255,0,0.1);
+    padding: 48px 40px;
+    position: relative;
+  }
+  .booking-form-wrapper::after {
+    content: '';
+    position: absolute; bottom: -2px; right: -2px;
+    width: 60px; height: 60px;
+    border-bottom: 2px solid var(--volt);
+    border-right: 2px solid var(--volt);
+  }
+  .form-group { margin-bottom: 20px; }
+  .form-label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin-bottom: 8px;
   }
   .form-input, .form-select, .form-textarea {
     width: 100%;
-    background: rgba(255,255,255,0.03);
+    background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
     color: var(--white);
-    padding: 14px;
-    margin-bottom: 20px;
-    font-family: inherit;
+    padding: 12px 16px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
   }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--volt); }
+  .form-textarea { height: 100px; resize: none; }
+  .form-select { cursor: pointer; }
+  .form-select option { background: var(--dark3); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .submit-btn {
     width: 100%;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
     padding: 16px;
     background: var(--volt);
     color: var(--dark);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
     border: none;
     cursor: pointer;
     clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.2s;
+    margin-top: 8px;
   }
+  .submit-btn:hover { background: var(--white); transform: translateY(-2px); }
+  .booking-info h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--volt);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+  .service-list { list-style: none; }
+  .service-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .service-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+  .service-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .service-desc { font-size: 0.85rem; color: rgba(232,232,232,0.5); }
 
-  /* Modals */
+  .testimonials-section {
+    background: var(--dark);
+    text-align: center;
+    padding: 80px 48px;
+    overflow: hidden;
+  }
+  .testimonials-section .section-label { justify-content: center; }
+  .testimonials-section .section-label::before { display: none; }
+  .testimonials-track {
+    display: flex;
+    gap: 20px;
+    animation: slide 30s linear infinite;
+    width: max-content;
+    margin-top: 48px;
+  }
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .testimonial-card {
+    width: 340px;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 28px;
+    text-align: left;
+    flex-shrink: 0;
+  }
+  .testimonial-stars { color: #f5c518; font-size: 0.9rem; margin-bottom: 12px; }
+  .testimonial-text {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: rgba(232,232,232,0.7);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .testimonial-author {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    color: var(--white);
+    font-size: 0.95rem;
+  }
+  .testimonial-role { font-size: 0.75rem; color: var(--volt); letter-spacing: 0.1em; }
+
+  .features-strip {
+    background: var(--volt);
+    padding: 60px 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+  .feature-item {
+    background: var(--volt);
+    padding: 20px 30px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .feature-item:last-child { border-right: none; }
+  .feature-icon { font-size: 2rem; margin-bottom: 10px; }
+  .feature-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+  .feature-text { font-size: 0.8rem; color: rgba(0,0,0,0.6); }
+
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(200,255,0,0.1);
+    padding: 64px 48px 32px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+  .footer-brand .nav-logo { font-size: 2.2rem; display: block; margin-bottom: 16px; }
+  .footer-tagline { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .footer-social { display: flex; gap: 10px; }
+  .social-btn {
+    width: 38px; height: 38px;
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    text-decoration: none;
+    transition: all 0.2s;
+    clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+  }
+  .social-btn:hover { background: var(--volt); color: var(--dark); border-color: var(--volt); }
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin-bottom: 20px;
+  }
+  .footer-links { list-style: none; }
+  .footer-links li { margin-bottom: 10px; }
+  .footer-links a { font-size: 0.88rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-copy { font-size: 0.8rem; color: rgba(102,102,102,0.7); }
+  .footer-copy span { color: var(--volt); }
+
   .modal-overlay {
     position: fixed; inset: 0;
     background: rgba(0,0,0,0.85);
     z-index: 2000;
-    display: none; align-items: center; justify-content: center;
-    backdrop-filter: blur(8px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(4px);
   }
-  .modal-overlay.active { display: flex; }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
   .modal-box {
-    background: var(--dark2);
+    background: var(--dark3);
+    border: 1px solid rgba(200,255,0,0.2);
     padding: 40px;
-    width: 100%; max-width: 500px;
-    border: 1px solid var(--volt);
+    width: 500px; max-width: 95vw;
+    position: relative;
+    transform: translateY(20px);
+    transition: transform 0.3s;
   }
-
+  .modal-overlay.active .modal-box { transform: translateY(0); }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    background: none; border: none;
+    color: var(--muted); font-size: 1.3rem;
+    cursor: pointer; transition: color 0.2s;
+  }
+  .modal-close:hover { color: var(--volt); }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .modal-subtitle { font-size: 0.85rem; color: var(--muted); margin-bottom: 28px; }
   .toast {
-    position: fixed; bottom: 30px; right: 30px;
-    background: var(--volt); color: var(--dark);
-    padding: 15px 30px;
-    font-weight: 700;
+    position: fixed; bottom: 32px; right: 32px;
+    background: var(--volt);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    padding: 14px 24px;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
     z-index: 3000;
-    transform: translateY(150%);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s;
   }
-  .toast.show { transform: translateY(0); }
+  .toast.show { transform: translateY(0); opacity: 1; }
 
-  @media (max-width: 768px) {
-    nav { padding: 20px; }
-    .menu-toggle { display: flex; }
-    .nav-links {
-      position: fixed; top: 0; right: -100%;
-      width: 80%; height: 100vh;
-      background: var(--dark2);
-      flex-direction: column;
-      padding: 100px 40px;
-      transition: 0.4s;
-    }
-    .nav-links.active { right: 0; }
+  .cart-icon {
+    position: fixed; bottom: 32px; left: 32px;
+    background: var(--dark3);
+    border: 1px solid rgba(200,255,0,0.3);
+    padding: 14px 20px;
+    cursor: pointer;
+    z-index: 900;
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--light);
+    transition: border-color 0.2s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+  .cart-icon:hover { border-color: var(--volt); }
+  .cart-count {
+    background: var(--volt);
+    color: var(--dark);
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; font-weight: bold;
+  }
+
+  .fade-in {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero-content { padding: 120px 24px 80px; }
+    section { padding: 70px 24px; }
+    .booking-section { grid-template-columns: 1fr; gap: 40px; }
+    .categories-grid { grid-template-columns: 1fr 1fr; }
+    .categories-grid .category-tile:first-child { grid-row: span 1; height: 280px; }
+    .features-strip { grid-template-columns: repeat(2, 1fr); padding: 40px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .products-header { flex-direction: column; align-items: flex-start; gap: 16px; }
   }
 </style>
 </head>
@@ -345,140 +850,492 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
-<div class="toast" id="toast">Added to cart!</div>
+<div class="toast" id="toast">✓ Added to cart!</div>
 
-<nav>
-  <a href="#" class="nav-logo">Nova<span>Volt</span></a>
-  <div class="menu-toggle" id="mobile-menu">
-    <span></span><span></span><span></span>
-  </div>
-  <ul class="nav-links" id="nav-list">
-    <li><a href="#products">Store</a></li>
-    <li><a href="#categories">Categories</a></li>
-    <li><a href="#coaches">Coaches</a></li>
-    <li><a href="#book">Bookings</a></li>
-    <li><a href="#" class="nav-cta" onclick="openModal('cart')">Cart (<span id="cartCount">0</span>)</a></li>
-  </ul>
-</nav>
+<div class="cart-icon" onclick="openModal('cart')">
+  🛒 Cart <span class="cart-count" id="cartCount">0</span>
+</div>
 
-<section class="hero" id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-tag">Power Your Potential</div>
-    <h1 class="hero-title">TRAIN<br><span class="volt-word">HARDER.</span><br><span class="stroke-text">PERFORM</span><br>BETTER.</h1>
-    <p class="hero-desc">Premium fitness equipment, athletic apparel, supplements, and coaching — everything for peak performance.</p>
-    <div class="hero-actions">
-      <a href="#products" class="btn-primary">Shop Now →</a>
-    </div>
-  </div>
-  <div class="hero-visual">
-    <div class="hero-card-stack">
-        <div class="product-card-hero">
-            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">💊</div>
-            <div style="padding: 20px; font-family:'Bebas Neue';">WHEY PRO X</div>
-        </div>
-        <div class="product-card-hero">
-            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">👟</div>
-            <div style="padding: 20px; font-family:'Bebas Neue';">VOLT RUN V2</div>
-        </div>
-        <div class="product-card-hero">
-            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">🏋️</div>
-            <div style="padding: 20px; font-family:'Bebas Neue';">POWER DUMBBELLS</div>
-        </div>
-    </div>
-  </div>
-</section>
-
-<section id="products" style="background: var(--dark2);">
-  <div class="section-label">Our Store</div>
-  <h2 class="section-title">FEATURED <span class="accent">PRODUCTS</span></h2>
-  <div class="products-grid" id="productsGrid"></div>
-</section>
-
-<section id="book">
-  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
-    <div>
-        <div class="section-label">Mastery</div>
-        <h2 class="section-title">BOOK YOUR <span class="accent">SESSION</span></h2>
-    </div>
-    <div class="booking-form-wrapper">
-      <form action="https://formspree.io/f/your-id-here" method="POST">
-        <input type="text" name="name" class="form-input" placeholder="Full Name" required>
-        <input type="email" name="email" class="form-input" placeholder="Email Address" required>
-        <select name="service" class="form-select">
-          <option>Goal Assessment</option>
-          <option>Nutrition Consultation</option>
-          <option>1-on-1 Training</option>
-        </select>
-        <textarea name="message" class="form-textarea" placeholder="Your Fitness Goals..."></textarea>
-        <button type="submit" class="submit-btn">Request Consultation →</button>
-      </form>
-    </div>
-  </div>
-</section>
-
+<!-- CART MODAL -->
 <div class="modal-overlay" id="modalCart">
   <div class="modal-box">
-    <h2 class="section-title" style="font-size: 2rem;">YOUR <span class="accent">CART</span></h2>
-    <div id="cartItemsList" style="margin: 20px 0; border-top: 1px solid #333;"></div>
-    <div id="cartTotal" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Total: $0.00</div>
-    <button class="submit-btn" onclick="checkout()">Checkout Now</button>
-    <button onclick="closeModal('cart')" style="background: none; color: white; border: none; margin-top: 15px; cursor: pointer;">Close</button>
+    <button class="modal-close" onclick="closeModal('cart')">✕</button>
+    <div class="modal-title">Your Cart</div>
+    <div class="modal-subtitle">Review your selected items</div>
+    <div id="cartItems" style="color:var(--muted);font-size:0.9rem;line-height:1.8;min-height:60px;">Your cart is empty.</div>
+    <div id="cartTotal" style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--volt);margin-top:20px;"></div>
+    <button class="submit-btn" style="margin-top:16px;" onclick="checkout()">Proceed to Checkout</button>
   </div>
 </div>
 
-<script>
-  // Mobile Menu
-  const menuBtn = document.getElementById('mobile-menu');
-  const navList = document.getElementById('nav-list');
-  menuBtn.addEventListener('click', () => navList.classList.toggle('active'));
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="modalBook">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('book')">✕</button>
+    <div class="modal-title">Book a Session</div>
+    <div class="modal-subtitle" id="bookCoachName">Select your coach and session details</div>
+    <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" placeholder="Full name"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="you@email.com"></div>
+    <div class="form-group"><label class="form-label">Fitness Goal</label><input type="text" class="form-input" placeholder="e.g. Build muscle, lose weight, marathon prep"></div>
+    <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input"></div>
+    <button class="submit-btn" onclick="confirmBooking()">Confirm Booking</button>
+  </div>
+</div>
 
-  // Cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  document.addEventListener('mousemove', e => {
-    if(cursor) cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
-    if(ring) ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
-  });
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nova<span>Volt</span></a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#book">Book Session</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal('cart')">Cart (0)</a></li>
+  </ul>
+</nav>
 
-  // Cart logic
-  let cart = [];
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3000);
-  }
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-tag">Power Your Potential</div>
+    <h1 class="hero-title">
+      TRAIN<br>
+      <span class="volt-word">HARDER.</span><br>
+      <span class="stroke-text">PERFORM</span><br>
+      BETTER.
+    </h1>
+    <p class="hero-desc">Premium fitness equipment, athletic apparel, supplements, and personalized coaching — everything you need to reach your peak performance.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Shop Now →</a>
+      <a href="#coaches" class="btn-secondary">Find a Coach</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Products</div></div>
+      <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">Expert Coaches</div></div>
+      <div class="stat-item"><div class="stat-num">12k+</div><div class="stat-label">Athletes</div></div>
+    </div>
+  </div>
+  <div class="hero-visual fade-in">
+    <div class="hero-card-stack">
+      <div class="product-card-hero">
+        <div class="card-hero-icon">💊</div>
+        <div class="card-hero-label">Supplements</div>
+        <div class="card-hero-name">WHEY PRO X</div>
+        <div class="card-hero-price">$49.99</div>
+      </div>
+      <div class="product-card-hero">
+        <div class="card-hero-icon">👟</div>
+        <div class="card-hero-label">Footwear</div>
+        <div class="card-hero-name">VOLT RUN V2</div>
+        <div class="card-hero-price">$129.99</div>
+      </div>
+      <div class="product-card-hero">
+        <div class="card-hero-icon">🏋️</div>
+        <div class="card-hero-label">Equipment</div>
+        <div class="card-hero-name">POWER DUMBBELL SET</div>
+        <div class="card-hero-price">$89.99</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  function addToCart(name, price) {
-    cart.push({name, price});
-    document.getElementById('cartCount').textContent = cart.length;
-    showToast(`${name} added!`);
-  }
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">GYM EQUIPMENT <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">FITNESS APPAREL <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">SUPPLEMENTS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">EXPERT COACHING <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">TRAINING ACCESSORIES <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">SPORTS NUTRITION <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">WORKOUT GEAR <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">PERSONALIZED PLANS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">GYM EQUIPMENT <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">FITNESS APPAREL <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">SUPPLEMENTS <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">EXPERT COACHING <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">TRAINING ACCESSORIES <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">SPORTS NUTRITION <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">WORKOUT GEAR <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">PERSONALIZED PLANS <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
 
-  function openModal(type) { document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active'); }
-  function closeModal(type) { document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('active'); }
+<!-- PRODUCTS -->
+<section class="products-section" id="products">
+  <div class="products-header fade-in">
+    <div>
+      <div class="section-label">Our Store</div>
+      <div class="section-title">FEATURED <span class="accent">PRODUCTS</span></div>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts(this,'all')">All</button>
+      <button class="filter-tab" onclick="filterProducts(this,'equipment')">Equipment</button>
+      <button class="filter-tab" onclick="filterProducts(this,'supplements')">Supplements</button>
+      <button class="filter-tab" onclick="filterProducts(this,'apparel')">Apparel</button>
+    </div>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
 
-  // Data
-  const products = [
-    {name: 'Volt Pro Dumbbells', price: 89.99, img: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Hyper-Whey Isolate', price: 49.99, img: 'https://images.unsplash.com/photo-1593095191071-82b63de74aec?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Performance Bench', price: 199.99, img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Elite Speed Rope', price: 29.99, img: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?auto=format&fit=crop&q=80&w=400'}
-  ];
+<!-- CATEGORIES -->
+<section class="categories-section" id="categories">
+  <div class="fade-in" style="margin-bottom:48px;">
+    <div class="section-label">Browse</div>
+    <div class="section-title">SHOP BY <span class="accent">CATEGORY</span></div>
+  </div>
+  <div class="categories-grid fade-in">
+    <div class="category-tile">
+      <div class="cat-bg" style="background:linear-gradient(135deg,#0f1a00,#1a2a00);">🏋️</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><div class="cat-name">Gym Equipment</div><div class="cat-count">120+ products</div></div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="category-tile">
+      <div class="cat-bg" style="background:linear-gradient(135deg,#1a0a00,#0a0a00);">👕</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><div class="cat-name">Apparel</div><div class="cat-count">85+ products</div></div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="category-tile">
+      <div class="cat-bg" style="background:linear-gradient(135deg,#001a0a,#000f1a);">💊</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><div class="cat-name">Supplements</div><div class="cat-count">60+ products</div></div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="category-tile">
+      <div class="cat-bg" style="background:linear-gradient(135deg,#0a000f,#1a000f);">🥊</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><div class="cat-name">Accessories</div><div class="cat-count">95+ products</div></div>
+      <div class="cat-arrow">→</div>
+    </div>
+    <div class="category-tile">
+      <div class="cat-bg" style="background:linear-gradient(135deg,#1a1000,#0a1a00);">👟</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-content"><div class="cat-name">Footwear</div><div class="cat-count">40+ products</div></div>
+      <div class="cat-arrow">→</div>
+    </div>
+  </div>
+</section>
 
-  const grid = document.getElementById('productsGrid');
-  products.forEach(p => {
-    grid.innerHTML += `
-      <div class="product-card">
-        <div class="product-img-container"><img src="${p.img}"></div>
-        <div style="padding: 20px;">
-          <h3 style="font-family:'Bebas Neue';">${p.name}</h3>
-          <p style="color:var(--volt);">$${p.price}</p>
-          <button class="submit-btn" style="padding:8px;font-size:0.9rem;" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+<!-- COACHES -->
+<section class="coaches-section" id="coaches">
+  <div class="fade-in" style="margin-bottom:56px;">
+    <div class="section-label">Expert Guidance</div>
+    <div class="section-title">MEET YOUR <span class="accent">COACHES</span></div>
+    <p class="section-desc">Connect with certified fitness trainers and sport-specific coaches dedicated to helping you achieve your personal best.</p>
+  </div>
+  <div class="coaches-grid" id="coachesGrid"></div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking-section" id="book">
+  <div class="fade-in">
+    <div class="section-label">Get Started</div>
+    <div class="section-title">BOOK A <span class="accent">SESSION</span></div>
+    <p class="section-desc">Request a consultation or training session with one of our expert coaches. Tell us your goals — we'll match you with the right program.</p>
+    <ul class="service-list">
+      <li class="service-item">
+        <span class="service-icon">🎯</span>
+        <div><div class="service-name">Goal Assessment</div><div class="service-desc">1-hour session to map your fitness journey</div></div>
+      </li>
+      <li class="service-item">
+        <span class="service-icon">📋</span>
+        <div><div class="service-name">Custom Training Plan</div><div class="service-desc">Personalized program based on your goals</div></div>
+      </li>
+      <li class="service-item">
+        <span class="service-icon">🏆</span>
+        <div><div class="service-name">Sport-Specific Coaching</div><div class="service-desc">Targeted programs for athletes and competitors</div></div>
+      </li>
+      <li class="service-item">
+        <span class="service-icon">💬</span>
+        <div><div class="service-name">Nutrition Consultation</div><div class="service-desc">Diet and supplement guidance from experts</div></div>
+      </li>
+    </ul>
+  </div>
+  <div class="fade-in">
+    <div class="booking-form-wrapper">
+      <div class="section-label" style="margin-bottom:20px;">Request Form</div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" placeholder="John"></div>
+        <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" placeholder="Doe"></div>
+      </div>
+      <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" placeholder="john@email.com"></div>
+      <div class="form-group">
+        <label class="form-label">Service Type</label>
+        <select class="form-select">
+          <option>Goal Assessment</option>
+          <option>Custom Training Plan</option>
+          <option>Sport-Specific Coaching</option>
+          <option>Nutrition Consultation</option>
+          <option>1-on-1 Training Session</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Preferred Coach</label>
+        <select class="form-select" id="coachSelect"><option>Any Available Coach</option></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input"></div>
+        <div class="form-group"><label class="form-label">Time Slot</label>
+          <select class="form-select">
+            <option>Morning (8–12)</option>
+            <option>Afternoon (12–5)</option>
+            <option>Evening (5–8)</option>
+          </select>
         </div>
-      </div>`;
-  });
+      </div>
+      <div class="form-group"><label class="form-label">Fitness Goal / Notes</label><textarea class="form-textarea" placeholder="Tell us about your goals, current fitness level, or any specific requirements..."></textarea></div>
+      <button class="submit-btn" onclick="submitBooking()">Submit Request →</button>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section">
+  <div class="section-label fade-in">What They Say</div>
+  <div class="section-title fade-in">CLIENT <span class="accent">RESULTS</span></div>
+  <div class="testimonials-track" id="testimonialsTrack"></div>
+</section>
+
+<!-- FEATURES STRIP -->
+<div class="features-strip">
+  <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-title">Fast Delivery</div><div class="feature-text">Free shipping on orders over $75</div></div>
+  <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-title">Secure Checkout</div><div class="feature-text">256-bit encrypted payments</div></div>
+  <div class="feature-item"><div class="feature-icon">↩️</div><div class="feature-title">Easy Returns</div><div class="feature-text">30-day hassle-free returns</div></div>
+  <div class="feature-item"><div class="feature-icon">🏅</div><div class="feature-title">Certified Coaches</div><div class="feature-text">All coaches are fully certified</div></div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--dark2);">
+  <div class="fade-in" style="max-width:600px;margin:0 auto;text-align:center;">
+    <div class="section-label" style="justify-content:center;"><span>Get In Touch</span></div>
+    <div class="section-title" style="text-align:center;">CONTACT <span class="accent">US</span></div>
+    <p class="section-desc" style="margin:0 auto 40px;text-align:center;">Have a question, feedback, or want to learn more? We'd love to hear from you.</p>
+    <div class="booking-form-wrapper">
+      <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" placeholder="Full name"></div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="your@email.com"></div>
+      <div class="form-group"><label class="form-label">Subject</label><input type="text" class="form-input" placeholder="How can we help?"></div>
+      <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" style="height:130px;" placeholder="Your message..."></textarea></div>
+      <button class="submit-btn" onclick="sendMessage()">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Nova<span>Volt</span></a>
+      <p class="footer-tagline">Empowering athletes and fitness enthusiasts with premium products and expert coaching since 2020. Power your potential with NovaVolt.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">yt</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul class="footer-links">
+        <li><a href="#">Gym Equipment</a></li>
+        <li><a href="#">Supplements</a></li>
+        <li><a href="#">Fitness Apparel</a></li>
+        <li><a href="#">Accessories</a></li>
+        <li><a href="#">Footwear</a></li>
+        <li><a href="#">New Arrivals</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Coaching</h4>
+      <ul class="footer-links">
+        <li><a href="#">Our Coaches</a></li>
+        <li><a href="#">Book a Session</a></li>
+        <li><a href="#">Training Plans</a></li>
+        <li><a href="#">Nutrition Guide</a></li>
+        <li><a href="#">Sport Programs</a></li>
+        <li><a href="#">Online Coaching</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 <span>NovaVolt Fitness</span>. All rights reserved.</div>
+    <div class="footer-copy">Designed for peak performance.</div>
+  </div>
+</footer>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+  ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+});
+document.querySelectorAll('a,button,.product-card,.coach-card,.category-tile').forEach(el => {
+  el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; });
+  el.addEventListener('mouseleave', () => { ring.style.width = '36px'; ring.style.height = '36px'; });
+});
+
+// CART
+let cart = [];
+let cartTotal = 0;
+function addToCart(name, price) {
+  cart.push({name, price});
+  cartTotal += price;
+  document.getElementById('cartCount').textContent = cart.length;
+  document.querySelectorAll('.nav-cta').forEach(el => el.textContent = `Cart (${cart.length})`);
+  showToast(`✓ ${name} added!`);
+  updateCartModal();
+}
+function updateCartModal() {
+  const el = document.getElementById('cartItems');
+  const tot = document.getElementById('cartTotal');
+  if (!cart.length) { el.innerHTML = 'Your cart is empty.'; tot.textContent = ''; return; }
+  el.innerHTML = cart.map(i => `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05)"><span>${i.name}</span><span style="color:var(--volt)">$${i.price.toFixed(2)}</span></div>`).join('');
+  tot.textContent = `Total: $${cartTotal.toFixed(2)}`;
+}
+function checkout() {
+  if (!cart.length) return;
+  cart = []; cartTotal = 0;
+  document.getElementById('cartCount').textContent = 0;
+  document.querySelectorAll('.nav-cta').forEach(el => el.textContent = 'Cart (0)');
+  updateCartModal();
+  closeModal('cart');
+  showToast('✓ Order placed successfully!');
+}
+
+// MODALS
+function openModal(type) {
+  document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active');
+}
+function closeModal(type) {
+  document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('active');
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+});
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// PRODUCTS
+const products = [
+  {name:'Volt Dumbbell Set', cat:'equipment', price:89.99, icon:'🏋️', badge:'new'},
+  {name:'ProWhey Protein X', cat:'supplements', price:49.99, icon:'💊', badge:''},
+  {name:'NV Performance Tee', cat:'apparel', price:34.99, icon:'👕', badge:''},
+  {name:'Resistance Band Kit', cat:'equipment', price:29.99, icon:'🔄', badge:'sale', oldPrice:39.99},
+  {name:'BCAA Storm 30srv', cat:'supplements', price:39.99, icon:'⚡', badge:'new'},
+  {name:'Volt Run V2 Shoes', cat:'apparel', price:129.99, icon:'👟', badge:''},
+  {name:'Olympic Barbell 20kg', cat:'equipment', price:199.99, icon:'🏗️', badge:''},
+  {name:'Pre-Workout Surge', cat:'supplements', price:44.99, icon:'🔥', badge:'sale', oldPrice:54.99},
+];
+function renderProducts(filtered = products) {
+  const grid = document.getElementById('productsGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-cat="${p.cat}">
+      ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ''}
+      <div class="product-img">${p.icon}
+        <button class="product-add-btn" onclick="addToCart('${p.name}',${p.price})">+</button>
+      </div>
+      <div class="product-info">
+        <div class="product-cat">${p.cat}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price-row">
+          <div>
+            <span class="product-price">$${p.price}</span>
+            ${p.oldPrice ? `<span class="product-old-price">$${p.oldPrice}</span>` : ''}
+          </div>
+          <div><span class="rating-stars">★★★★</span>★</div>
+        </div>
+      </div>
+    </div>`).join('');
+}
+function filterProducts(btn, cat) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat === 'all' ? products : products.filter(p => p.cat === cat));
+}
+renderProducts();
+
+// COACHES
+const coaches = [
+  {name:'Marcus Reid', specialty:'Strength & Conditioning', bio:'10+ years coaching elite powerlifters and bodybuilders. Specializes in progressive overload and muscle hypertrophy.', tags:['Powerlifting','Bodybuilding','Nutrition'], icon:'💪'},
+  {name:'Alicia Torres', specialty:'HIIT & Cardio Training', bio:'Former marathon runner turned performance coach. Helps clients build cardiovascular endurance and shred body fat.', tags:['HIIT','Cardio','Weight Loss'], icon:'🏃'},
+  {name:'Devon Clarke', specialty:'Sports Performance', bio:'Worked with professional athletes across football, basketball, and track. Focuses on speed, agility, and explosive power.', tags:['Speed','Agility','Athletics'], icon:'⚡'},
+  {name:'Priya Nair', specialty:'Yoga & Mobility', bio:'Certified yoga instructor and mobility specialist. Helps athletes improve flexibility, recovery, and injury prevention.', tags:['Yoga','Flexibility','Recovery'], icon:'🧘'},
+];
+const coachGrid = document.getElementById('coachesGrid');
+const coachSelect = document.getElementById('coachSelect');
+coaches.forEach(c => {
+  coachGrid.innerHTML += `
+    <div class="coach-card">
+      <div class="coach-avatar">${c.icon}</div>
+      <div class="coach-name">${c.name}</div>
+      <div class="coach-specialty">${c.specialty}</div>
+      <div class="coach-bio">${c.bio}</div>
+      <div class="coach-tags">${c.tags.map(t=>`<span class="coach-tag">${t}</span>`).join('')}</div>
+      <a href="#" class="coach-btn" onclick="bookCoach('${c.name}')">Book Session →</a>
+    </div>`;
+  coachSelect.innerHTML += `<option>${c.name}</option>`;
+});
+function bookCoach(name) {
+  document.getElementById('bookCoachName').textContent = `Booking with: ${name}`;
+  openModal('book');
+}
+function confirmBooking() {
+  closeModal('book');
+  showToast('✓ Booking request submitted!');
+}
+
+// TESTIMONIALS
+const testimonials = [
+  {text:"NovaVolt completely transformed my training. Lost 18kg in 5 months with Marcus's program and the right supplements.", author:'James K.', role:'Weight Loss Client', stars:5},
+  {text:'The coaches here are world-class. My marathon time dropped by 12 minutes after just 3 months with Alicia.', author:'Sophie L.', role:'Marathon Runner', stars:5},
+  {text:"Best fitness store I've found online. Products arrive fast, quality is excellent, and the coaching bundle is great value.", author:'Ryan M.', role:'Gym Member', stars:5},
+  {text:"Priya's mobility program fixed my chronic back pain. I can finally train properly again. Can't recommend enough.", author:'Carlos V.', role:'Mobility Client', stars:5},
+  {text:'Devon worked with our whole football team. The speed improvements were dramatic. Highly professional service.', author:'Coach T.', role:'Team Manager', stars:5},
+  {text:'The supplement range is excellent and prices are very competitive. The protein powder is my absolute favourite.', author:'Emma H.', role:'Fitness Enthusiast', stars:5},
+];
+const track = document.getElementById('testimonialsTrack');
+[...testimonials,...testimonials].forEach(t => {
+  track.innerHTML += `
+    <div class="testimonial-card">
+      <div class="testimonial-stars">${'★'.repeat(t.stars)}</div>
+      <div class="testimonial-text">"${t.text}"</div>
+      <div class="testimonial-author">${t.author}</div>
+      <div class="testimonial-role">${t.role}</div>
+    </div>`;
+});
+
+// FORMS
+function sendMessage() { showToast("✓ Message sent! We'll be in touch."); }
+function submitBooking() { showToast('✓ Booking request submitted!'); }
+
+// SCROLL ANIMATIONS
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), 100); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
