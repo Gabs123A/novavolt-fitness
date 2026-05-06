@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NovaVolt Fitness | Premium Gear & Expert Coaching</title>
+<meta name="description" content="Reach your peak performance with NovaVolt Fitness. Shop professional-grade equipment, supplements, and book sessions with certified coaches.">
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --volt: #C8FF00;
+    --volt-dim: #9bc500;
+    --dark: #0a0a0a;
+    --dark2: #111111;
+    --dark3: #1a1a1a;
+    --mid: #2a2a2a;
+    --light: #e8e8e8;
+    --white: #ffffff;
+    --accent: #ff4d1c;
+    --muted: #666;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--light);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* Custom Cursor - Hidden on touch devices */
+  @media (min-width: 1024px) {
+    body { cursor: none; }
+    .cursor {
+      width: 12px; height: 12px;
+      background: var(--volt);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      width: 36px; height: 36px;
+      border: 1px solid var(--volt);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.18s ease, width 0.2s, height 0.2s;
+      opacity: 0.5;
+    }
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    backdrop-filter: blur(10px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--volt); }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--volt); }
+  
+  /* Mobile Menu Toggle */
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  .menu-toggle span {
+    width: 30px; height: 2px;
+    background: var(--white);
+    transition: 0.3s;
+  }
+
+  .nav-cta {
+    background: var(--volt);
+    color: var(--dark) !important;
+    padding: 10px 22px;
+    font-weight: 700 !important;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  /* Sections & Layout */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, rgba(200,255,0,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(255,77,28,0.05) 0%, transparent 50%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,255,0,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,255,0,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(135deg, transparent 30%, black 70%);
+  }
+  .hero-content {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 48px 80px;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block; width: 40px; height: 1px;
+    background: var(--volt);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .hero-title .volt-word { color: var(--volt); }
+  .hero-title .stroke-text {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+  .hero-desc {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: rgba(232,232,232,0.7);
+    max-width: 440px;
+    margin-bottom: 44px;
+  }
+  .hero-actions { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--volt);
+    color: var(--dark);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: 0.2s;
+  }
+  .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+  
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    padding: 120px 48px 80px 0;
+  }
+
+  .marquee-section {
+    background: var(--volt);
+    overflow: hidden;
+    padding: 14px 0;
+  }
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+  }
+  .marquee-item {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--dark);
+    padding: 0 32px;
+    flex-shrink: 0;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  section { padding: 100px 48px; }
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--volt);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+  .section-title .accent { color: var(--volt); }
+
+  /* Product Cards */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+  }
+  .product-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.05);
+    position: relative;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+  .product-img-container {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    background: #222;
+  }
+  .product-img-container img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+    filter: grayscale(0.5);
+  }
+  .product-card:hover .product-img-container img {
+    transform: scale(1.1);
+    filter: grayscale(0);
+  }
+
+  /* Coach Cards */
+  .coaches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .coach-card {
+    background: var(--dark3);
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 32px 28px;
+    transition: 0.3s;
+  }
+  .coach-card:hover { border-color: var(--volt); transform: translateY(-5px); }
+
+  /* Forms */
+  .booking-form-wrapper {
+    background: var(--dark3);
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--white);
+    padding: 14px;
+    margin-bottom: 20px;
+    font-family: inherit;
+  }
+  .form-input:focus { border-color: var(--volt); outline: none; }
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--volt);
+    color: var(--dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    border: none;
+    cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+
+  /* Footer */
+  footer {
+    padding: 80px 48px 40px;
+    background: #050505;
+    border-top: 1px solid rgba(200,255,0,0.1);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-social { display: flex; gap: 15px; margin-top: 20px; }
+  .social-btn {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.2s;
+  }
+  .social-btn:hover { color: var(--volt); }
+
+  /* Modals */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+    display: none; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+  .modal-overlay.active { display: flex; }
+  .modal-box {
+    background: var(--dark2);
+    padding: 40px;
+    width: 100%; max-width: 500px;
+    border: 1px solid var(--volt);
+  }
+
+  /* Toast Notifications */
+  .toast {
+    position: fixed; bottom: 30px; right: 30px;
+    background: var(--volt); color: var(--dark);
+    padding: 15px 30px;
+    font-weight: 700;
+    z-index: 3000;
+    transform: translateY(150%);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .toast.show { transform: translateY(0); }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 20px; }
+    .menu-toggle { display: flex; }
+    .nav-links {
+      position: fixed; top: 0; right: -100%;
+      width: 80%; height: 100vh;
+      background: var(--dark2);
+      flex-direction: column;
+      padding: 100px 40px;
+      transition: 0.4s;
+    }
+    .nav-links.active { right: 0; }
+    section { padding: 80px 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="toast" id="toast">Added to cart!</div>
+
+<nav>
+  <a href="#" class="nav-logo">Nova<span>Volt</span></a>
+  <div class="menu-toggle" id="mobile-menu">
+    <span></span><span></span><span></span>
+  </div>
+  <ul class="nav-links" id="nav-list">
+    <li><a href="#products">Store</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#book">Bookings</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#" class="nav-cta" onclick="openCart()">Cart (<span id="cartCount">0</span>)</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Peak Performance Awaits</div>
+    <h1 class="hero-title">
+      TRAIN<br>
+      <span class="volt-word">UNSTOPPABLE.</span><br>
+      <span class="stroke-text">LIVE</span><br>
+      STRONGER.
+    </h1>
+    <p class="hero-desc">Premium fitness equipment, science-backed supplements, and world-class coaching. We provide the tools; you provide the sweat.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Explore Store →</a>
+      <a href="#coaches" class="btn-secondary">Meet the Coaches</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    </div>
+</section>
+
+<section id="products">
+  <div class="section-label">Premium Gear</div>
+  <h2 class="section-title">FEATURED <span class="accent">COLLECTION</span></h2>
+  <div class="products-grid" id="productsGrid">
+    </div>
+</section>
+
+<section id="coaches" style="background: var(--dark2);">
+  <div class="section-label">Mastery</div>
+  <h2 class="section-title">EXPERT <span class="accent">COACHES</span></h2>
+  <div class="coaches-grid" id="coachesGrid">
+    </div>
+</section>
+
+<section id="book">
+  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+    <div>
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">BOOK YOUR <span class="accent">SESSION</span></h2>
+      <p style="color: var(--muted); margin-bottom: 30px;">Choose your path. Whether it's a one-on-one deep dive or a custom nutrition plan, our experts are ready.</p>
+    </div>
+    <div class="booking-form-wrapper">
+      <form action="https://formspree.io/f/your-id-here" method="POST">
+        <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+        <input type="email" name="email" class="form-input" placeholder="Email Address" required>
+        <select name="service" class="form-select">
+          <option>1-on-1 Personal Training</option>
+          <option>Nutrition Consultation</option>
+          <option>Competition Prep</option>
+        </select>
+        <textarea name="message" class="form-textarea" placeholder="Your Fitness Goals..."></textarea>
+        <button type="submit" class="submit-btn">Request Consultation →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="nav-logo">Nova<span>Volt</span></a>
+      <p style="color: var(--muted); margin-top: 15px;">Setting the standard in athletic excellence since 2020.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn">INSTAGRAM</a>
+        <a href="#" class="social-btn">YOUTUBE</a>
+        <a href="#" class="social-btn">TWITTER / X</a>
+      </div>
+    </div>
+    <div>
+      <h4 style="color: var(--volt); margin-bottom: 20px;">SHOP</h4>
+      <p>Equipment</p><p>Apparel</p><p>Supplements</p>
+    </div>
+    <div>
+      <h4 style="color: var(--volt); margin-bottom: 20px;">SUPPORT</h4>
+      <p>Shipping</p><p>Returns</p><p>Contact</p>
+    </div>
+    <div>
+      <h4 style="color: var(--volt); margin-bottom: 20px;">LEGAL</h4>
+      <p>Privacy</p><p>Terms</p>
+    </div>
+  </div>
+  <p style="text-align: center; color: #444; margin-top: 60px;">&copy; 2026 NovaVolt Fitness. All Rights Reserved.</p>
+</footer>
+
+<div class="modal-overlay" id="cartModal">
+  <div class="modal-box">
+    <h2 class="section-title" style="font-size: 2rem;">YOUR <span class="accent">CART</span></h2>
+    <div id="cartItemsList" style="margin: 20px 0; border-top: 1px solid #333;">
+      </div>
+    <div id="cartTotal" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Total: $0.00</div>
+    <button class="submit-btn" onclick="checkout()">Checkout Now</button>
+    <button onclick="closeCart()" style="background: none; color: white; border: none; margin-top: 15px; cursor: pointer;">Close</button>
+  </div>
+</div>
+
+<script>
+  // Mobile Menu Toggle
+  const menuBtn = document.getElementById('mobile-menu');
+  const navList = document.getElementById('nav-list');
+  menuBtn.addEventListener('click', () => {
+    navList.classList.toggle('active');
+  });
+
+  // Cursor Logic
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  document.addEventListener('mousemove', e => {
+    if(cursor) cursor.style.transform = `translate(${e.clientX - 6}px, ${e.clientY - 6}px)`;
+    if(ring) ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
+  });
+
+  // Cart State
+  let cart = [];
+  const toast = document.getElementById('toast');
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  function addToCart(name, price) {
+    cart.push({name, price});
+    document.getElementById('cartCount').textContent = cart.length;
+    showToast(`${name} added to cart!`);
+  }
+
+  function openCart() {
+    const list = document.getElementById('cartItemsList');
+    const totalEl = document.getElementById('cartTotal');
+    list.innerHTML = cart.length === 0 ? '<p style="padding: 20px 0;">Cart is empty.</p>' : 
+      cart.map(item => `<div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #333;"><span>${item.name}</span><span>$${item.price}</span></div>`).join('');
+    
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    totalEl.textContent = `Total: $${total.toFixed(2)}`;
+    
+    document.getElementById('cartModal').classList.add('active');
+  }
+
+  function closeCart() {
+    document.getElementById('cartModal').classList.remove('active');
+  }
+
+  function checkout() {
+    if(cart.length === 0) return alert("Cart is empty!");
+    alert("Redirecting to secure payment...");
+    cart = [];
+    document.getElementById('cartCount').textContent = "0";
+    closeCart();
+  }
+
+  // Data Rendering
+  const products = [
+    {name: 'Volt Pro Dumbbells', price: 129.99, img: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Hyper-Whey Isolate', price: 54.99, img: 'https://images.unsplash.com/photo-1593095191071-82b63de74aec?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Performance Bench', price: 210.00, img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Elite Speed Rope', price: 24.99, img: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?auto=format&fit=crop&q=80&w=400'}
+  ];
+
+  const coaches = [
+    {name: 'Marcus Thorne', specialty: 'Strength & Conditioning', img: '💪'},
+    {name: 'Sarah Jenkins', specialty: 'Nutrition & Wellness', img: '🥗'},
+    {name: 'David Okafor', specialty: 'Athletic Performance', img: '⚡'}
+  ];
+
+  const prodGrid = document.getElementById('productsGrid');
+  products.forEach(p => {
+    prodGrid.innerHTML += `
+      <div class="product-card">
+        <div class="product-img-container"><img src="${p.img}" alt="${p.name}"></div>
+        <div style="padding: 20px;">
+          <h3 style="font-family:'Bebas Neue'; font-size: 1.5rem;">${p.name}</h3>
+          <p style="color: var(--volt); font-weight: bold; margin: 10px 0;">$${p.price}</p>
+          <button class="submit-btn" style="padding: 10px; font-size: 0.9rem;" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+        </div>
+      </div>
+    `;
+  });
+
+  const coachGrid = document.getElementById('coachesGrid');
+  coaches.forEach(c => {
+    coachGrid.innerHTML += `
+      <div class="coach-card">
+        <div style="font-size: 3rem; margin-bottom: 15px;">${c.img}</div>
+        <h3 style="font-family:'Bebas Neue'; font-size: 1.8rem;">${c.name}</h3>
+        <p style="color: var(--volt); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">${c.specialty}</p>
+        <button class="btn-secondary" style="margin-top: 20px; background: none; border: 1px solid #444; color: white; padding: 10px 20px; cursor: pointer;">View Profile</button>
+      </div>
+    `;
+  });
+
+</script>
+</body>
+</html>
