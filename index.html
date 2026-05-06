@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NovaVolt Fitness | Premium Gear & Expert Coaching</title>
+<title>NovaVolt Fitness — Power Your Potential</title>
 <meta name="description" content="Reach your peak performance with NovaVolt Fitness. Shop professional-grade equipment, supplements, and book sessions with certified coaches.">
-
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;700;900&display=swap" rel="stylesheet">
-
 <style>
   :root {
     --volt: #C8FF00;
@@ -57,7 +55,6 @@
     }
   }
 
-  /* Navigation */
   nav {
     position: fixed; top: 0; left: 0; right: 0;
     z-index: 1000;
@@ -108,7 +105,6 @@
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   }
 
-  /* Sections & Layout */
   .hero {
     min-height: 100vh;
     display: grid;
@@ -192,6 +188,19 @@
     padding: 120px 48px 80px 0;
   }
 
+  .hero-card-stack { position: relative; width: 340px; height: 420px; }
+  .product-card-hero {
+    position: absolute;
+    background: var(--dark3);
+    border: 1px solid rgba(200,255,0,0.15);
+    border-radius: 2px;
+    overflow: hidden;
+    transition: transform 0.4s ease;
+  }
+  .product-card-hero:nth-child(1) { width: 260px; height: 320px; top: 60px; right: 0; transform: rotate(4deg); z-index: 1; }
+  .product-card-hero:nth-child(2) { width: 220px; height: 280px; top: 20px; left: 0; transform: rotate(-3deg); z-index: 2; }
+  .product-card-hero:nth-child(3) { width: 240px; height: 300px; top: 100px; left: 40px; transform: rotate(1deg); z-index: 3; }
+
   .marquee-section {
     background: var(--volt);
     overflow: hidden;
@@ -264,21 +273,6 @@
     filter: grayscale(0);
   }
 
-  /* Coach Cards */
-  .coaches-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
-  }
-  .coach-card {
-    background: var(--dark3);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 32px 28px;
-    transition: 0.3s;
-  }
-  .coach-card:hover { border-color: var(--volt); transform: translateY(-5px); }
-
-  /* Forms */
   .booking-form-wrapper {
     background: var(--dark3);
     padding: 40px;
@@ -293,7 +287,6 @@
     margin-bottom: 20px;
     font-family: inherit;
   }
-  .form-input:focus { border-color: var(--volt); outline: none; }
   .submit-btn {
     width: 100%;
     padding: 16px;
@@ -306,30 +299,10 @@
     clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
   }
 
-  /* Footer */
-  footer {
-    padding: 80px 48px 40px;
-    background: #050505;
-    border-top: 1px solid rgba(200,255,0,0.1);
-  }
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
-    gap: 40px;
-  }
-  .footer-social { display: flex; gap: 15px; margin-top: 20px; }
-  .social-btn {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.2s;
-  }
-  .social-btn:hover { color: var(--volt); }
-
   /* Modals */
   .modal-overlay {
     position: fixed; inset: 0;
-    background: rgba(0,0,0,0.9);
+    background: rgba(0,0,0,0.85);
     z-index: 2000;
     display: none; align-items: center; justify-content: center;
     backdrop-filter: blur(8px);
@@ -342,7 +315,6 @@
     border: 1px solid var(--volt);
   }
 
-  /* Toast Notifications */
   .toast {
     position: fixed; bottom: 30px; right: 30px;
     background: var(--volt); color: var(--dark);
@@ -353,13 +325,6 @@
     transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   .toast.show { transform: translateY(0); }
-
-  /* Responsive Design */
-  @media (max-width: 1024px) {
-    .hero { grid-template-columns: 1fr; }
-    .hero-visual { display: none; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-  }
 
   @media (max-width: 768px) {
     nav { padding: 20px; }
@@ -373,8 +338,6 @@
       transition: 0.4s;
     }
     .nav-links.active { right: 0; }
-    section { padding: 80px 20px; }
-    .footer-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -391,10 +354,10 @@
   </div>
   <ul class="nav-links" id="nav-list">
     <li><a href="#products">Store</a></li>
+    <li><a href="#categories">Categories</a></li>
     <li><a href="#coaches">Coaches</a></li>
     <li><a href="#book">Bookings</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#" class="nav-cta" onclick="openCart()">Cart (<span id="cartCount">0</span>)</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal('cart')">Cart (<span id="cartCount">0</span>)</a></li>
   </ul>
 </nav>
 
@@ -402,52 +365,51 @@
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-tag">Peak Performance Awaits</div>
-    <h1 class="hero-title">
-      TRAIN<br>
-      <span class="volt-word">UNSTOPPABLE.</span><br>
-      <span class="stroke-text">LIVE</span><br>
-      STRONGER.
-    </h1>
-    <p class="hero-desc">Premium fitness equipment, science-backed supplements, and world-class coaching. We provide the tools; you provide the sweat.</p>
+    <div class="hero-tag">Power Your Potential</div>
+    <h1 class="hero-title">TRAIN<br><span class="volt-word">HARDER.</span><br><span class="stroke-text">PERFORM</span><br>BETTER.</h1>
+    <p class="hero-desc">Premium fitness equipment, athletic apparel, supplements, and coaching — everything for peak performance.</p>
     <div class="hero-actions">
-      <a href="#products" class="btn-primary">Explore Store →</a>
-      <a href="#coaches" class="btn-secondary">Meet the Coaches</a>
+      <a href="#products" class="btn-primary">Shop Now →</a>
     </div>
   </div>
   <div class="hero-visual">
+    <div class="hero-card-stack">
+        <div class="product-card-hero">
+            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">💊</div>
+            <div style="padding: 20px; font-family:'Bebas Neue';">WHEY PRO X</div>
+        </div>
+        <div class="product-card-hero">
+            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">👟</div>
+            <div style="padding: 20px; font-family:'Bebas Neue';">VOLT RUN V2</div>
+        </div>
+        <div class="product-card-hero">
+            <div style="font-size: 3rem; text-align: center; padding-top: 20px;">🏋️</div>
+            <div style="padding: 20px; font-family:'Bebas Neue';">POWER DUMBBELLS</div>
+        </div>
     </div>
+  </div>
 </section>
 
-<section id="products">
-  <div class="section-label">Premium Gear</div>
-  <h2 class="section-title">FEATURED <span class="accent">COLLECTION</span></h2>
-  <div class="products-grid" id="productsGrid">
-    </div>
-</section>
-
-<section id="coaches" style="background: var(--dark2);">
-  <div class="section-label">Mastery</div>
-  <h2 class="section-title">EXPERT <span class="accent">COACHES</span></h2>
-  <div class="coaches-grid" id="coachesGrid">
-    </div>
+<section id="products" style="background: var(--dark2);">
+  <div class="section-label">Our Store</div>
+  <h2 class="section-title">FEATURED <span class="accent">PRODUCTS</span></h2>
+  <div class="products-grid" id="productsGrid"></div>
 </section>
 
 <section id="book">
   <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
     <div>
-      <div class="section-label">Get Started</div>
-      <h2 class="section-title">BOOK YOUR <span class="accent">SESSION</span></h2>
-      <p style="color: var(--muted); margin-bottom: 30px;">Choose your path. Whether it's a one-on-one deep dive or a custom nutrition plan, our experts are ready.</p>
+        <div class="section-label">Mastery</div>
+        <h2 class="section-title">BOOK YOUR <span class="accent">SESSION</span></h2>
     </div>
     <div class="booking-form-wrapper">
       <form action="https://formspree.io/f/your-id-here" method="POST">
         <input type="text" name="name" class="form-input" placeholder="Full Name" required>
         <input type="email" name="email" class="form-input" placeholder="Email Address" required>
         <select name="service" class="form-select">
-          <option>1-on-1 Personal Training</option>
+          <option>Goal Assessment</option>
           <option>Nutrition Consultation</option>
-          <option>Competition Prep</option>
+          <option>1-on-1 Training</option>
         </select>
         <textarea name="message" class="form-textarea" placeholder="Your Fitness Goals..."></textarea>
         <button type="submit" class="submit-btn">Request Consultation →</button>
@@ -456,53 +418,23 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-grid">
-    <div>
-      <a href="#" class="nav-logo">Nova<span>Volt</span></a>
-      <p style="color: var(--muted); margin-top: 15px;">Setting the standard in athletic excellence since 2020.</p>
-      <div class="footer-social">
-        <a href="#" class="social-btn">INSTAGRAM</a>
-        <a href="#" class="social-btn">YOUTUBE</a>
-        <a href="#" class="social-btn">TWITTER / X</a>
-      </div>
-    </div>
-    <div>
-      <h4 style="color: var(--volt); margin-bottom: 20px;">SHOP</h4>
-      <p>Equipment</p><p>Apparel</p><p>Supplements</p>
-    </div>
-    <div>
-      <h4 style="color: var(--volt); margin-bottom: 20px;">SUPPORT</h4>
-      <p>Shipping</p><p>Returns</p><p>Contact</p>
-    </div>
-    <div>
-      <h4 style="color: var(--volt); margin-bottom: 20px;">LEGAL</h4>
-      <p>Privacy</p><p>Terms</p>
-    </div>
-  </div>
-  <p style="text-align: center; color: #444; margin-top: 60px;">&copy; 2026 NovaVolt Fitness. All Rights Reserved.</p>
-</footer>
-
-<div class="modal-overlay" id="cartModal">
+<div class="modal-overlay" id="modalCart">
   <div class="modal-box">
     <h2 class="section-title" style="font-size: 2rem;">YOUR <span class="accent">CART</span></h2>
-    <div id="cartItemsList" style="margin: 20px 0; border-top: 1px solid #333;">
-      </div>
+    <div id="cartItemsList" style="margin: 20px 0; border-top: 1px solid #333;"></div>
     <div id="cartTotal" style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px;">Total: $0.00</div>
     <button class="submit-btn" onclick="checkout()">Checkout Now</button>
-    <button onclick="closeCart()" style="background: none; color: white; border: none; margin-top: 15px; cursor: pointer;">Close</button>
+    <button onclick="closeModal('cart')" style="background: none; color: white; border: none; margin-top: 15px; cursor: pointer;">Close</button>
   </div>
 </div>
 
 <script>
-  // Mobile Menu Toggle
+  // Mobile Menu
   const menuBtn = document.getElementById('mobile-menu');
   const navList = document.getElementById('nav-list');
-  menuBtn.addEventListener('click', () => {
-    navList.classList.toggle('active');
-  });
+  menuBtn.addEventListener('click', () => navList.classList.toggle('active'));
 
-  // Cursor Logic
+  // Cursor
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursorRing');
   document.addEventListener('mousemove', e => {
@@ -510,86 +442,43 @@
     if(ring) ring.style.transform = `translate(${e.clientX - 18}px, ${e.clientY - 18}px)`;
   });
 
-  // Cart State
+  // Cart logic
   let cart = [];
-  const toast = document.getElementById('toast');
-
   function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
   }
 
   function addToCart(name, price) {
     cart.push({name, price});
     document.getElementById('cartCount').textContent = cart.length;
-    showToast(`${name} added to cart!`);
+    showToast(`${name} added!`);
   }
 
-  function openCart() {
-    const list = document.getElementById('cartItemsList');
-    const totalEl = document.getElementById('cartTotal');
-    list.innerHTML = cart.length === 0 ? '<p style="padding: 20px 0;">Cart is empty.</p>' : 
-      cart.map(item => `<div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #333;"><span>${item.name}</span><span>$${item.price}</span></div>`).join('');
-    
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    totalEl.textContent = `Total: $${total.toFixed(2)}`;
-    
-    document.getElementById('cartModal').classList.add('active');
-  }
+  function openModal(type) { document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.add('active'); }
+  function closeModal(type) { document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('active'); }
 
-  function closeCart() {
-    document.getElementById('cartModal').classList.remove('active');
-  }
-
-  function checkout() {
-    if(cart.length === 0) return alert("Cart is empty!");
-    alert("Redirecting to secure payment...");
-    cart = [];
-    document.getElementById('cartCount').textContent = "0";
-    closeCart();
-  }
-
-  // Data Rendering
+  // Data
   const products = [
-    {name: 'Volt Pro Dumbbells', price: 129.99, img: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Hyper-Whey Isolate', price: 54.99, img: 'https://images.unsplash.com/photo-1593095191071-82b63de74aec?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Performance Bench', price: 210.00, img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'},
-    {name: 'Elite Speed Rope', price: 24.99, img: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?auto=format&fit=crop&q=80&w=400'}
+    {name: 'Volt Pro Dumbbells', price: 89.99, img: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Hyper-Whey Isolate', price: 49.99, img: 'https://images.unsplash.com/photo-1593095191071-82b63de74aec?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Performance Bench', price: 199.99, img: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=400'},
+    {name: 'Elite Speed Rope', price: 29.99, img: 'https://images.unsplash.com/photo-1544033527-b192daee1f5b?auto=format&fit=crop&q=80&w=400'}
   ];
 
-  const coaches = [
-    {name: 'Marcus Thorne', specialty: 'Strength & Conditioning', img: '💪'},
-    {name: 'Sarah Jenkins', specialty: 'Nutrition & Wellness', img: '🥗'},
-    {name: 'David Okafor', specialty: 'Athletic Performance', img: '⚡'}
-  ];
-
-  const prodGrid = document.getElementById('productsGrid');
+  const grid = document.getElementById('productsGrid');
   products.forEach(p => {
-    prodGrid.innerHTML += `
+    grid.innerHTML += `
       <div class="product-card">
-        <div class="product-img-container"><img src="${p.img}" alt="${p.name}"></div>
+        <div class="product-img-container"><img src="${p.img}"></div>
         <div style="padding: 20px;">
-          <h3 style="font-family:'Bebas Neue'; font-size: 1.5rem;">${p.name}</h3>
-          <p style="color: var(--volt); font-weight: bold; margin: 10px 0;">$${p.price}</p>
-          <button class="submit-btn" style="padding: 10px; font-size: 0.9rem;" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+          <h3 style="font-family:'Bebas Neue';">${p.name}</h3>
+          <p style="color:var(--volt);">$${p.price}</p>
+          <button class="submit-btn" style="padding:8px;font-size:0.9rem;" onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
         </div>
-      </div>
-    `;
+      </div>`;
   });
-
-  const coachGrid = document.getElementById('coachesGrid');
-  coaches.forEach(c => {
-    coachGrid.innerHTML += `
-      <div class="coach-card">
-        <div style="font-size: 3rem; margin-bottom: 15px;">${c.img}</div>
-        <h3 style="font-family:'Bebas Neue'; font-size: 1.8rem;">${c.name}</h3>
-        <p style="color: var(--volt); text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;">${c.specialty}</p>
-        <button class="btn-secondary" style="margin-top: 20px; background: none; border: 1px solid #444; color: white; padding: 10px 20px; cursor: pointer;">View Profile</button>
-      </div>
-    `;
-  });
-
 </script>
 </body>
 </html>
