@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+html<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -362,7 +362,6 @@
   .product-img {
     height: 200px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 5rem;
     background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(200,255,0,0.03));
     transition: background 0.3s;
     position: relative;
@@ -372,15 +371,9 @@
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.3s;
+    transition: transform 0.4s ease;
   }
-  .product-img img.loaded { opacity: 1; }
-  .product-img .img-fallback { position: relative; z-index: 1; transition: opacity 0.3s; }
-  .product-img img.loaded ~ .img-fallback { opacity: 0; }
-  .product-card:hover .product-img {
-    background: linear-gradient(135deg, rgba(200,255,0,0.05), rgba(200,255,0,0.02));
-  }
+  .product-card:hover .product-img img { transform: scale(1.06); }
   .product-add-btn {
     position: absolute; bottom: 10px; right: 10px;
     width: 36px; height: 36px;
@@ -525,19 +518,7 @@
     margin-bottom: 20px;
     border: 2px solid rgba(200,255,0,0.3);
     overflow: hidden;
-    position: relative;
   }
-  .coach-avatar img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .coach-avatar img.loaded { opacity: 1; }
-  .coach-avatar img.loaded ~ .coach-avatar-icon { opacity: 0; }
-  .coach-avatar-icon { position: relative; transition: opacity 0.3s; }
   .coach-name {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.3rem;
@@ -853,77 +834,6 @@
   }
   .cart-icon:hover { border-color: var(--volt); }
 
-  /* IMAGE MANAGER PANEL */
-  .img-manager-btn {
-    position: fixed; top: 80px; right: 16px;
-    background: var(--dark3);
-    border: 1px solid rgba(200,255,0,0.4);
-    color: var(--volt);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    cursor: pointer;
-    z-index: 800;
-    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
-    transition: background 0.2s, color 0.2s;
-  }
-  .img-manager-btn:hover { background: var(--volt); color: var(--dark); }
-  .img-manager-panel {
-    position: fixed; top: 0; right: -420px;
-    width: 400px; height: 100vh;
-    background: var(--dark3);
-    border-left: 1px solid rgba(200,255,0,0.2);
-    z-index: 1500;
-    overflow-y: auto;
-    transition: right 0.35s cubic-bezier(0.4,0,0.2,1);
-    padding: 28px 24px;
-  }
-  .img-manager-panel.open { right: 0; }
-  .img-manager-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--white); margin-bottom: 6px; }
-  .img-manager-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
-  .img-section-head {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--volt);
-    margin: 20px 0 10px; border-bottom: 1px solid rgba(200,255,0,0.1); padding-bottom: 6px;
-  }
-  .img-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-  .img-row label { font-size: 0.75rem; color: var(--light); min-width: 80px; flex-shrink: 0; line-height: 1.3; }
-  .img-row input[type="text"] {
-    flex: 1; min-width: 0;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-    color: var(--white); padding: 7px 10px; font-family: 'Barlow', sans-serif;
-    font-size: 0.75rem; outline: none; transition: border-color 0.2s;
-  }
-  .img-row input[type="text"]:focus { border-color: var(--volt); }
-  .img-row input[type="file"] { display: none; }
-  .img-file-btn {
-    background: rgba(200,255,0,0.1); border: 1px solid rgba(200,255,0,0.3);
-    color: var(--volt); font-size: 0.7rem; padding: 7px 10px; cursor: pointer;
-    white-space: nowrap; flex-shrink: 0; font-family: 'Barlow Condensed', sans-serif;
-    letter-spacing: 0.1em; transition: background 0.2s;
-  }
-  .img-file-btn:hover { background: rgba(200,255,0,0.2); }
-  .img-thumb {
-    width: 36px; height: 36px; border: 1px solid rgba(255,255,255,0.1);
-    object-fit: cover; flex-shrink: 0; background: var(--dark2);
-  }
-  .img-apply-btn {
-    width: 100%; margin-top: 24px;
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.15em;
-    padding: 14px; background: var(--volt); color: var(--dark); border: none;
-    cursor: pointer; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
-    transition: background 0.2s;
-  }
-  .img-apply-btn:hover { background: var(--white); }
-  .img-manager-close {
-    position: absolute; top: 16px; right: 16px;
-    background: none; border: none; color: var(--muted); font-size: 1.3rem;
-    cursor: pointer; transition: color 0.2s;
-  }
-  .img-manager-close:hover { color: var(--volt); }
-
   /* ENHANCED BOOKING MODAL */
   .modal-book-box { width: 600px !important; max-height: 90vh; overflow-y: auto; }
   .modal-book-box::-webkit-scrollbar { width: 4px; }
@@ -971,7 +881,7 @@
 <div class="toast" id="toast">✓ Added to cart!</div>
 
 <div class="cart-icon" onclick="openModal('cart')">
-  🛒 Cart <span class="cart-count" id="cartCount">0</span>
+  <img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/shopping-cart.svg" alt="Cart" style="width:18px;height:18px;filter:invert(1);vertical-align:middle;"> Cart <span class="cart-count" id="cartCount">0</span>
 </div>
 
 <!-- CART MODAL -->
@@ -1023,10 +933,9 @@
         <div class="form-group">
           <label class="form-label">Time Slot</label>
           <select class="form-select" id="bkTime">
-            <option>Morning (8am-11pm)</option>
-            <option>Afternoon (11pm-2pm)</option>
-            <option>Evening (2pm-5pm)</option>
-            <option>Evening (5pm-8pm)</option>
+            <option>Morning (8am – 12pm)</option>
+            <option>Afternoon (12pm – 5pm)</option>
+            <option>Evening (5pm – 8pm)</option>
           </select>
         </div>
       </div>
@@ -1065,40 +974,6 @@
   </ul>
 </nav>
 
-<!-- IMAGE MANAGER BUTTON -->
-<button class="img-manager-btn" onclick="toggleImgManager()">🖼 Manage Images</button>
-
-<!-- IMAGE MANAGER PANEL -->
-<div class="img-manager-panel" id="imgManagerPanel">
-  <button class="img-manager-close" onclick="toggleImgManager()">✕</button>
-  <div class="img-manager-title">Image Manager</div>
-  <p class="img-manager-sub">Paste an image URL or upload a file to replace any placeholder icon on the site.</p>
-
-  <div class="img-section-head">Hero Product Cards</div>
-  <div class="img-row"><label>Supplements Card</label><input type="text" id="heroImg0" placeholder="Paste URL…" oninput="previewImg('heroImg0','heroThumb0')"><img class="img-thumb" id="heroThumb0" src="" alt="" style="display:none"><input type="file" id="heroFile0" accept="image/*" onchange="fileToUrl(this,'heroImg0','heroThumb0')"><button class="img-file-btn" onclick="document.getElementById('heroFile0').click()">Upload</button></div>
-  <div class="img-row"><label>Footwear Card</label><input type="text" id="heroImg1" placeholder="Paste URL…" oninput="previewImg('heroImg1','heroThumb1')"><img class="img-thumb" id="heroThumb1" src="" alt="" style="display:none"><input type="file" id="heroFile1" accept="image/*" onchange="fileToUrl(this,'heroImg1','heroThumb1')"><button class="img-file-btn" onclick="document.getElementById('heroFile1').click()">Upload</button></div>
-  <div class="img-row"><label>Equipment Card</label><input type="text" id="heroImg2" placeholder="Paste URL…" oninput="previewImg('heroImg2','heroThumb2')"><img class="img-thumb" id="heroThumb2" src="" alt="" style="display:none"><input type="file" id="heroFile2" accept="image/*" onchange="fileToUrl(this,'heroImg2','heroThumb2')"><button class="img-file-btn" onclick="document.getElementById('heroFile2').click()">Upload</button></div>
-
-  <div class="img-section-head">Category Tiles</div>
-  <div class="img-row"><label>Gym Equipment</label><input type="text" id="catImg0" placeholder="Paste URL…" oninput="previewImg('catImg0','catThumb0')"><img class="img-thumb" id="catThumb0" src="" alt="" style="display:none"><input type="file" id="catFile0" accept="image/*" onchange="fileToUrl(this,'catImg0','catThumb0')"><button class="img-file-btn" onclick="document.getElementById('catFile0').click()">Upload</button></div>
-  <div class="img-row"><label>Apparel</label><input type="text" id="catImg1" placeholder="Paste URL…" oninput="previewImg('catImg1','catThumb1')"><img class="img-thumb" id="catThumb1" src="" alt="" style="display:none"><input type="file" id="catFile1" accept="image/*" onchange="fileToUrl(this,'catImg1','catThumb1')"><button class="img-file-btn" onclick="document.getElementById('catFile1').click()">Upload</button></div>
-  <div class="img-row"><label>Supplements</label><input type="text" id="catImg2" placeholder="Paste URL…" oninput="previewImg('catImg2','catThumb2')"><img class="img-thumb" id="catThumb2" src="" alt="" style="display:none"><input type="file" id="catFile2" accept="image/*" onchange="fileToUrl(this,'catImg2','catThumb2')"><button class="img-file-btn" onclick="document.getElementById('catFile2').click()">Upload</button></div>
-  <div class="img-row"><label>Accessories</label><input type="text" id="catImg3" placeholder="Paste URL…" oninput="previewImg('catImg3','catThumb3')"><img class="img-thumb" id="catThumb3" src="" alt="" style="display:none"><input type="file" id="catFile3" accept="image/*" onchange="fileToUrl(this,'catImg3','catThumb3')"><button class="img-file-btn" onclick="document.getElementById('catFile3').click()">Upload</button></div>
-  <div class="img-row"><label>Footwear</label><input type="text" id="catImg4" placeholder="Paste URL…" oninput="previewImg('catImg4','catThumb4')"><img class="img-thumb" id="catThumb4" src="" alt="" style="display:none"><input type="file" id="catFile4" accept="image/*" onchange="fileToUrl(this,'catImg4','catThumb4')"><button class="img-file-btn" onclick="document.getElementById('catFile4').click()">Upload</button></div>
-
-  <div class="img-section-head">Coach Photos</div>
-  <div class="img-row"><label>Marcus Reid</label><input type="text" id="coachImg0" placeholder="Paste URL…" oninput="previewImg('coachImg0','coachThumb0')"><img class="img-thumb" id="coachThumb0" src="" alt="" style="display:none"><input type="file" id="coachFile0" accept="image/*" onchange="fileToUrl(this,'coachImg0','coachThumb0')"><button class="img-file-btn" onclick="document.getElementById('coachFile0').click()">Upload</button></div>
-  <div class="img-row"><label>Alicia Torres</label><input type="text" id="coachImg1" placeholder="Paste URL…" oninput="previewImg('coachImg1','coachThumb1')"><img class="img-thumb" id="coachThumb1" src="" alt="" style="display:none"><input type="file" id="coachFile1" accept="image/*" onchange="fileToUrl(this,'coachImg1','coachThumb1')"><button class="img-file-btn" onclick="document.getElementById('coachFile1').click()">Upload</button></div>
-  <div class="img-row"><label>Devon Clarke</label><input type="text" id="coachImg2" placeholder="Paste URL…" oninput="previewImg('coachImg2','coachThumb2')"><img class="img-thumb" id="coachThumb2" src="" alt="" style="display:none"><input type="file" id="coachFile2" accept="image/*" onchange="fileToUrl(this,'coachImg2','coachThumb2')"><button class="img-file-btn" onclick="document.getElementById('coachFile2').click()">Upload</button></div>
-  <div class="img-row"><label>Priya Nair</label><input type="text" id="coachImg3" placeholder="Paste URL…" oninput="previewImg('coachImg3','coachThumb3')"><img class="img-thumb" id="coachThumb3" src="" alt="" style="display:none"><input type="file" id="coachFile3" accept="image/*" onchange="fileToUrl(this,'coachImg3','coachThumb3')"><button class="img-file-btn" onclick="document.getElementById('coachFile3').click()">Upload</button></div>
-
-  <div class="img-section-head">Products (by name)</div>
-  <div id="productImgRows"></div>
-
-  <button class="img-apply-btn" onclick="applyAllImages()">Apply All Images</button>
-  <div style="height:40px;"></div>
-</div>
-
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-bg"></div>
@@ -1111,7 +986,7 @@
       <span class="stroke-text">PERFORM</span><br>
       BETTER.
     </h1>
-    <p class="hero-desc">Premium fitness equipment, athletic apparel, supplements, and personalized coaching - everything you need to reach your peak performance.</p>
+    <p class="hero-desc">Premium fitness equipment, athletic apparel, supplements, and personalized coaching — everything you need to reach your peak performance.</p>
     <div class="hero-actions">
       <a href="#products" class="btn-primary">Shop Now →</a>
       <a href="#coaches" class="btn-secondary">Find a Coach</a>
@@ -1125,19 +1000,19 @@
   <div class="hero-visual fade-in">
     <div class="hero-card-stack">
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard0"><span class="card-hero-emoji">💊</span></div>
+        <div class="card-hero-icon" id="heroCard0"><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80" alt="Supplements" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
         <div class="card-hero-label">Supplements</div>
         <div class="card-hero-name">WHEY PRO X</div>
         <div class="card-hero-price">$49.99</div>
       </div>
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard1"><span class="card-hero-emoji">👟</span></div>
+        <div class="card-hero-icon" id="heroCard1"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Footwear" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
         <div class="card-hero-label">Footwear</div>
         <div class="card-hero-name">VOLT RUN V2</div>
         <div class="card-hero-price">$129.99</div>
       </div>
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard2"><span class="card-hero-emoji">🏋️</span></div>
+        <div class="card-hero-icon" id="heroCard2"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80" alt="Equipment" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
         <div class="card-hero-label">Equipment</div>
         <div class="card-hero-name">POWER DUMBBELL SET</div>
         <div class="card-hero-price">$89.99</div>
@@ -1193,31 +1068,31 @@
   </div>
   <div class="categories-grid fade-in">
     <div class="category-tile">
-      <div class="cat-bg" id="catBg0" style="background:linear-gradient(135deg,#0f1a00,#1a2a00);"><span class="cat-emoji">🏋️</span></div>
+      <div class="cat-bg" id="catBg0" style="background:#0f1a00;"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Gym Equipment" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Gym Equipment</div><div class="cat-count">120+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg1" style="background:linear-gradient(135deg,#1a0a00,#0a0a00);"><span class="cat-emoji">👕</span></div>
+      <div class="cat-bg" id="catBg1" style="background:#1a0a00;"><img src="https://images.unsplash.com/photo-1620188526357-8f8b45cbf76f?w=600&q=80" alt="Apparel" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Apparel</div><div class="cat-count">85+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg2" style="background:linear-gradient(135deg,#001a0a,#000f1a);"><span class="cat-emoji">💊</span></div>
+      <div class="cat-bg" id="catBg2" style="background:#001a0a;"><img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80" alt="Supplements" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Supplements</div><div class="cat-count">60+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg3" style="background:linear-gradient(135deg,#0a000f,#1a000f);"><span class="cat-emoji">🥊</span></div>
+      <div class="cat-bg" id="catBg3" style="background:#0a000f;"><img src="https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=600&q=80" alt="Accessories" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Accessories</div><div class="cat-count">95+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg4" style="background:linear-gradient(135deg,#1a1000,#0a1a00);"><span class="cat-emoji">👟</span></div>
+      <div class="cat-bg" id="catBg4" style="background:#1a1000;"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80" alt="Footwear" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Footwear</div><div class="cat-count">40+ products</div></div>
       <div class="cat-arrow">→</div>
@@ -1243,19 +1118,19 @@
     <p class="section-desc">Request a consultation or training session with one of our expert coaches. Tell us your goals — we'll match you with the right program.</p>
     <ul class="service-list">
       <li class="service-item">
-        <span class="service-icon">🎯</span>
+        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/flag.svg" alt="Goal" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
         <div><div class="service-name">Goal Assessment</div><div class="service-desc">1-hour session to map your fitness journey</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon">📋</span>
+        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/clipboard-document-list.svg" alt="Plan" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
         <div><div class="service-name">Custom Training Plan</div><div class="service-desc">Personalized program based on your goals</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon">🏆</span>
+        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/trophy.svg" alt="Trophy" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
         <div><div class="service-name">Sport-Specific Coaching</div><div class="service-desc">Targeted programs for athletes and competitors</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon">💬</span>
+        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/chat-bubble-left-right.svg" alt="Nutrition" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
         <div><div class="service-name">Nutrition Consultation</div><div class="service-desc">Diet and supplement guidance from experts</div></div>
       </li>
     </ul>
@@ -1307,10 +1182,10 @@
 
 <!-- FEATURES STRIP -->
 <div class="features-strip">
-  <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-title">Fast Delivery</div><div class="feature-text">Free shipping on orders over $75</div></div>
-  <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-title">Secure Checkout</div><div class="feature-text">256-bit encrypted payments</div></div>
-  <div class="feature-item"><div class="feature-icon">↩️</div><div class="feature-title">Easy Returns</div><div class="feature-text">30-day hassle-free returns</div></div>
-  <div class="feature-item"><div class="feature-icon">🏅</div><div class="feature-title">Certified Coaches</div><div class="feature-text">All coaches are fully certified</div></div>
+  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/rocket-launch.svg" alt="Fast Delivery" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Fast Delivery</div><div class="feature-text">Free shipping on orders over $75</div></div>
+  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/lock-closed.svg" alt="Secure Checkout" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Secure Checkout</div><div class="feature-text">256-bit encrypted payments</div></div>
+  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/arrow-uturn-left.svg" alt="Easy Returns" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Easy Returns</div><div class="feature-text">30-day hassle-free returns</div></div>
+  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/academic-cap.svg" alt="Certified Coaches" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Certified Coaches</div><div class="feature-text">All coaches are fully certified</div></div>
 </div>
 
 <!-- CONTACT -->
@@ -1336,9 +1211,10 @@
       <a href="#" class="nav-logo">Nova<span>Volt</span></a>
       <p class="footer-tagline">Empowering athletes and fitness enthusiasts with premium products and expert coaching since 2023. Power your potential with NovaVolt.</p>
       <div class="footer-social">
-        <a href="#" class="social-btn">🌐 novavolt-fitness.com</a>
-        <a href="#" class="social-btn"> @novavolt-fitness</a>
-        <a href="#" class="social-btn">✉️ novavoltfitness@gmail.com</a>
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">ig</a>
+        <a href="#" class="social-btn">yt</a>
       </div>
     </div>
     <div class="footer-col">
@@ -1443,14 +1319,14 @@ function showToast(msg) {
 
 // PRODUCTS
 const products = [
-  {name:'Volt Dumbbell Set', cat:'equipment', price:89.99, icon:'🏋️', badge:'new'},
-  {name:'ProWhey Protein X', cat:'supplements', price:49.99, icon:'💊', badge:''},
-  {name:'NV Performance Tee', cat:'apparel', price:34.99, icon:'👕', badge:''},
-  {name:'Resistance Band Kit', cat:'equipment', price:29.99, icon:'🔄', badge:'sale', oldPrice:39.99},
-  {name:'BCAA Storm 30srv', cat:'supplements', price:39.99, icon:'⚡', badge:'new'},
-  {name:'Volt Run V2 Shoes', cat:'apparel', price:129.99, icon:'👟', badge:''},
-  {name:'Olympic Barbell 20kg', cat:'equipment', price:199.99, icon:'🏗️', badge:''},
-  {name:'Pre-Workout Surge', cat:'supplements', price:44.99, icon:'🔥', badge:'sale', oldPrice:54.99},
+  {name:'Volt Dumbbell Set', cat:'equipment', price:89.99, img:'https://images.unsplash.com/photo-1638805981949-362b29fc5b19?w=400&q=80', badge:'new'},
+  {name:'ProWhey Protein X', cat:'supplements', price:49.99, img:'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80', badge:''},
+  {name:'NV Performance Tee', cat:'apparel', price:34.99, img:'https://images.unsplash.com/photo-1620188526357-8f8b45cbf76f?w=400&q=80', badge:''},
+  {name:'Resistance Band Kit', cat:'equipment', price:29.99, img:'https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?w=400&q=80', badge:'sale', oldPrice:39.99},
+  {name:'BCAA Storm 30srv', cat:'supplements', price:39.99, img:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=80', badge:'new'},
+  {name:'Volt Run V2 Shoes', cat:'apparel', price:129.99, img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80', badge:''},
+  {name:'Olympic Barbell 20kg', cat:'equipment', price:199.99, img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80', badge:''},
+  {name:'Pre-Workout Surge', cat:'supplements', price:44.99, img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80', badge:'sale', oldPrice:54.99},
 ];
 function renderProducts(filtered = products) {
   const grid = document.getElementById('productsGrid');
@@ -1458,8 +1334,7 @@ function renderProducts(filtered = products) {
     <div class="product-card" data-cat="${p.cat}" data-idx="${products.indexOf(p)}">
       ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ''}
       <div class="product-img" id="prodImg${products.indexOf(p)}">
-        <img src="" alt="${p.name}" id="prodImgTag${products.indexOf(p)}" style="display:none">
-        <span class="img-fallback">${p.icon}</span>
+        <img src="${p.img}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
         <button class="product-add-btn" onclick="addToCart('${p.name}',${p.price})">+</button>
       </div>
       <div class="product-info">
@@ -1474,26 +1349,20 @@ function renderProducts(filtered = products) {
         </div>
       </div>
     </div>`).join('');
-  // Re-apply saved product images
-  Object.entries(productImages).forEach(([idx, url]) => {
-    const img = document.getElementById('prodImgTag' + idx);
-    if (img && url) { img.src = url; img.style.display = 'block'; img.onload = () => img.classList.add('loaded'); }
-  });
 }
 function filterProducts(btn, cat) {
   document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   renderProducts(cat === 'all' ? products : products.filter(p => p.cat === cat));
 }
-const productImages = {};
 renderProducts();
 
 // COACHES
 const coaches = [
-  {name:'Marcus Reid', specialty:'Strength & Conditioning', bio:'10+ years coaching elite powerlifters and bodybuilders. Specializes in progressive overload and muscle hypertrophy.', tags:['Powerlifting','Bodybuilding','Nutrition'], icon:'💪'},
-  {name:'Alicia Torres', specialty:'HIIT & Cardio Training', bio:'Former marathon runner turned performance coach. Helps clients build cardiovascular endurance and shred body fat.', tags:['HIIT','Cardio','Weight Loss'], icon:'🏃'},
-  {name:'Devon Clarke', specialty:'Sports Performance', bio:'Worked with professional athletes across football, basketball, and track. Focuses on speed, agility, and explosive power.', tags:['Speed','Agility','Athletics'], icon:'⚡'},
-  {name:'Priya Nair', specialty:'Yoga & Mobility', bio:'Certified yoga instructor and mobility specialist. Helps athletes improve flexibility, recovery, and injury prevention.', tags:['Yoga','Flexibility','Recovery'], icon:'🧘'},
+  {name:'Marcus Reid', specialty:'Strength & Conditioning', bio:'10+ years coaching elite powerlifters and bodybuilders. Specializes in progressive overload and muscle hypertrophy.', tags:['Powerlifting','Bodybuilding','Nutrition'], img:'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=200&q=80'},
+  {name:'Alicia Torres', specialty:'HIIT & Cardio Training', bio:'Former marathon runner turned performance coach. Helps clients build cardiovascular endurance and shred body fat.', tags:['HIIT','Cardio','Weight Loss'], img:'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=200&q=80'},
+  {name:'Devon Clarke', specialty:'Sports Performance', bio:'Worked with professional athletes across football, basketball, and track. Focuses on speed, agility, and explosive power.', tags:['Speed','Agility','Athletics'], img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&q=80'},
+  {name:'Priya Nair', specialty:'Yoga & Mobility', bio:'Certified yoga instructor and mobility specialist. Helps athletes improve flexibility, recovery, and injury prevention.', tags:['Yoga','Flexibility','Recovery'], img:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&q=80'},
 ];
 const coachGrid = document.getElementById('coachesGrid');
 const coachSelect = document.getElementById('coachSelect');
@@ -1502,8 +1371,7 @@ coaches.forEach((c, i) => {
   coachGrid.innerHTML += `
     <div class="coach-card">
       <div class="coach-avatar" id="coachAvatar${i}">
-        <img src="" alt="" id="coachAvatarImg${i}" style="display:none">
-        <span class="coach-avatar-icon">${c.icon}</span>
+        <img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
       </div>
       <div class="coach-name">${c.name}</div>
       <div class="coach-specialty">${c.specialty}</div>
@@ -1546,88 +1414,6 @@ function confirmBooking() {
   document.getElementById('bkService').selectedIndex = 0;
   document.getElementById('bkCoachSelect').selectedIndex = 0;
 }
-
-// IMAGE MANAGER
-function toggleImgManager() {
-  document.getElementById('imgManagerPanel').classList.toggle('open');
-}
-function previewImg(inputId, thumbId) {
-  const url = document.getElementById(inputId).value.trim();
-  const thumb = document.getElementById(thumbId);
-  if (url) { thumb.src = url; thumb.style.display = 'block'; } else { thumb.style.display = 'none'; }
-}
-function fileToUrl(input, inputId, thumbId) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById(inputId).value = e.target.result;
-    previewImg(inputId, thumbId);
-  };
-  reader.readAsDataURL(file);
-}
-// Build product rows in manager after products are rendered
-function buildProductImgRows() {
-  const cont = document.getElementById('productImgRows');
-  if (!cont) return;
-  cont.innerHTML = products.map((p, i) => `
-    <div class="img-row">
-      <label>${p.name}</label>
-      <input type="text" id="prodImgUrl${i}" placeholder="Paste URL…" oninput="previewImg('prodImgUrl${i}','prodThumb${i}')">
-      <img class="img-thumb" id="prodThumb${i}" src="" alt="" style="display:none">
-      <input type="file" id="prodFile${i}" accept="image/*" onchange="fileToUrl(this,'prodImgUrl${i}','prodThumb${i}')">
-      <button class="img-file-btn" onclick="document.getElementById('prodFile${i}').click()">Upload</button>
-    </div>`).join('');
-}
-function applyAllImages() {
-  // Hero cards
-  [0,1,2].forEach(i => {
-    const url = document.getElementById('heroImg'+i)?.value.trim();
-    const card = document.getElementById('heroCard'+i);
-    if (card && url) {
-      card.innerHTML = `<img src="${url}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
-    }
-  });
-  // Category tiles
-  [0,1,2,3,4].forEach(i => {
-    const url = document.getElementById('catImg'+i)?.value.trim();
-    const bg = document.getElementById('catBg'+i);
-    if (bg && url) {
-      const emoji = bg.querySelector('.cat-emoji');
-      let img = bg.querySelector('img');
-      if (!img) { img = document.createElement('img'); bg.insertBefore(img, bg.firstChild); }
-      img.src = url; img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
-      if (emoji) emoji.style.display = 'none';
-    }
-  });
-  // Coach avatars
-  coaches.forEach((c, i) => {
-    const url = document.getElementById('coachImg'+i)?.value.trim();
-    const avatarImg = document.getElementById('coachAvatarImg'+i);
-    if (avatarImg && url) {
-      avatarImg.src = url;
-      avatarImg.style.display = 'block';
-      avatarImg.onload = () => avatarImg.classList.add('loaded');
-    }
-  });
-  // Products
-  products.forEach((p, i) => {
-    const url = document.getElementById('prodImgUrl'+i)?.value.trim();
-    if (url) {
-      productImages[i] = url;
-      const img = document.getElementById('prodImgTag'+i);
-      if (img) {
-        img.src = url; img.style.display = 'block';
-        img.onload = () => img.classList.add('loaded');
-      }
-    }
-  });
-  showToast('✓ Images applied!');
-  toggleImgManager();
-}
-
-// Init product image rows after DOM ready
-setTimeout(buildProductImgRows, 100);
 
 // TESTIMONIALS
 const testimonials = [
