@@ -1,4 +1,4 @@
-html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -226,13 +226,7 @@ html<!DOCTYPE html>
     background: var(--dark3);
     z-index: 3;
   }
-  .card-hero-icon {
-    font-size: 4rem; text-align: center; padding: 30px 20px 10px;
-    height: 140px; display: flex; align-items: center; justify-content: center; overflow: hidden;
-  }
-  .card-hero-icon img {
-    width: 100%; height: 100%; object-fit: cover; border-radius: 2px;
-  }
+  .card-hero-icon { font-size: 4rem; text-align: center; padding: 30px 20px 10px; }
   .card-hero-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.7rem;
@@ -362,18 +356,14 @@ html<!DOCTYPE html>
   .product-img {
     height: 200px;
     display: flex; align-items: center; justify-content: center;
+    font-size: 5rem;
     background: linear-gradient(135deg, rgba(255,255,255,0.02), rgba(200,255,0,0.03));
     transition: background 0.3s;
     position: relative;
-    overflow: hidden;
   }
-  .product-img img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s ease;
+  .product-card:hover .product-img {
+    background: linear-gradient(135deg, rgba(200,255,0,0.05), rgba(200,255,0,0.02));
   }
-  .product-card:hover .product-img img { transform: scale(1.06); }
   .product-add-btn {
     position: absolute; bottom: 10px; right: 10px;
     width: 36px; height: 36px;
@@ -440,14 +430,7 @@ html<!DOCTYPE html>
     font-size: 6rem;
     transition: transform 0.5s ease, filter 0.3s;
     filter: brightness(0.6);
-    overflow: hidden;
   }
-  .cat-bg img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-  }
-  .cat-bg .cat-emoji { position: relative; z-index: 1; }
   .category-tile:hover .cat-bg { transform: scale(1.08); filter: brightness(0.4); }
   .cat-overlay {
     position: absolute; inset: 0;
@@ -517,7 +500,6 @@ html<!DOCTYPE html>
     font-size: 2rem;
     margin-bottom: 20px;
     border: 2px solid rgba(200,255,0,0.3);
-    overflow: hidden;
   }
   .coach-name {
     font-family: 'Barlow Condensed', sans-serif;
@@ -833,16 +815,6 @@ html<!DOCTYPE html>
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   }
   .cart-icon:hover { border-color: var(--volt); }
-
-  /* ENHANCED BOOKING MODAL */
-  .modal-book-box { width: 600px !important; max-height: 90vh; overflow-y: auto; }
-  .modal-book-box::-webkit-scrollbar { width: 4px; }
-  .modal-book-box::-webkit-scrollbar-thumb { background: rgba(200,255,0,0.3); }
-  .booking-success { display: none; text-align: center; padding: 20px 0; }
-  .booking-success.show { display: block; }
-  .booking-success-icon { font-size: 3rem; margin-bottom: 16px; }
-  .booking-success-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--volt); margin-bottom: 8px; }
-  .booking-success-msg { font-size: 0.9rem; color: var(--muted); }
   .cart-count {
     background: var(--volt);
     color: var(--dark);
@@ -881,7 +853,7 @@ html<!DOCTYPE html>
 <div class="toast" id="toast">✓ Added to cart!</div>
 
 <div class="cart-icon" onclick="openModal('cart')">
-  <img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/shopping-cart.svg" alt="Cart" style="width:18px;height:18px;filter:invert(1);vertical-align:middle;"> Cart <span class="cart-count" id="cartCount">0</span>
+  🛒 Cart <span class="cart-count" id="cartCount">0</span>
 </div>
 
 <!-- CART MODAL -->
@@ -898,66 +870,15 @@ html<!DOCTYPE html>
 
 <!-- BOOKING MODAL -->
 <div class="modal-overlay" id="modalBook">
-  <div class="modal-box modal-book-box">
+  <div class="modal-box">
     <button class="modal-close" onclick="closeModal('book')">✕</button>
     <div class="modal-title">Book a Session</div>
-    <div class="modal-subtitle" id="bookCoachName">Fill in your details to request a coaching session</div>
-
-    <div class="booking-form-fields" id="bookingFormFields">
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">First Name</label><input type="text" class="form-input" id="bkFirstName" placeholder="John"></div>
-        <div class="form-group"><label class="form-label">Last Name</label><input type="text" class="form-input" id="bkLastName" placeholder="Doe"></div>
-      </div>
-      <div class="form-group"><label class="form-label">Email Address</label><input type="email" class="form-input" id="bkEmail" placeholder="you@email.com"></div>
-      <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" class="form-input" id="bkPhone" placeholder="+1 (555) 000-0000"></div>
-      <div class="form-group">
-        <label class="form-label">Service Type</label>
-        <select class="form-select" id="bkService">
-          <option value="">— Select a service —</option>
-          <option>Goal Assessment (1hr)</option>
-          <option>Custom Training Plan</option>
-          <option>Sport-Specific Coaching</option>
-          <option>Nutrition Consultation</option>
-          <option>1-on-1 Training Session</option>
-          <option>Online Coaching Package</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Preferred Coach</label>
-        <select class="form-select" id="bkCoachSelect">
-          <option value="">Any Available Coach</option>
-        </select>
-      </div>
-      <div class="form-row">
-        <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input" id="bkDate"></div>
-        <div class="form-group">
-          <label class="form-label">Time Slot</label>
-          <select class="form-select" id="bkTime">
-            <option>Morning (8am – 12pm)</option>
-            <option>Afternoon (12pm – 5pm)</option>
-            <option>Evening (5pm – 8pm)</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Fitness Level</label>
-        <select class="form-select" id="bkLevel">
-          <option>Beginner (0–1 years)</option>
-          <option>Intermediate (1–3 years)</option>
-          <option>Advanced (3+ years)</option>
-          <option>Athlete / Competitor</option>
-        </select>
-      </div>
-      <div class="form-group"><label class="form-label">Goals & Notes</label><textarea class="form-textarea" id="bkNotes" style="height:90px;" placeholder="Tell us your goals, current fitness level, injuries, or any specific requirements…"></textarea></div>
-      <button class="submit-btn" onclick="confirmBooking()">Submit Request →</button>
-    </div>
-
-    <div class="booking-success" id="bookingSuccess">
-      <div class="booking-success-icon">✅</div>
-      <div class="booking-success-title">Request Submitted!</div>
-      <p class="booking-success-msg">Thanks! We'll review your details and get back to you within 24 hours to confirm your session.</p>
-      <button class="submit-btn" style="margin-top:28px;width:auto;padding:14px 40px;" onclick="closeModal('book')">Close</button>
-    </div>
+    <div class="modal-subtitle" id="bookCoachName">Select your coach and session details</div>
+    <div class="form-group"><label class="form-label">Your Name</label><input type="text" class="form-input" placeholder="Full name"></div>
+    <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="you@email.com"></div>
+    <div class="form-group"><label class="form-label">Fitness Goal</label><input type="text" class="form-input" placeholder="e.g. Build muscle, lose weight, marathon prep"></div>
+    <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input"></div>
+    <button class="submit-btn" onclick="confirmBooking()">Confirm Booking</button>
   </div>
 </div>
 
@@ -968,7 +889,7 @@ html<!DOCTYPE html>
     <li><a href="#products">Products</a></li>
     <li><a href="#categories">Categories</a></li>
     <li><a href="#coaches">Coaches</a></li>
-    <li><a href="#book" onclick="openBookModal()">Book Session</a></li>
+    <li><a href="#book">Book Session</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#" class="nav-cta" onclick="openModal('cart')">Cart (0)</a></li>
   </ul>
@@ -1000,19 +921,19 @@ html<!DOCTYPE html>
   <div class="hero-visual fade-in">
     <div class="hero-card-stack">
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard0"><img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80" alt="Supplements" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        <div class="card-hero-icon">💊</div>
         <div class="card-hero-label">Supplements</div>
         <div class="card-hero-name">WHEY PRO X</div>
         <div class="card-hero-price">$49.99</div>
       </div>
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard1"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Footwear" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        <div class="card-hero-icon">👟</div>
         <div class="card-hero-label">Footwear</div>
         <div class="card-hero-name">VOLT RUN V2</div>
         <div class="card-hero-price">$129.99</div>
       </div>
       <div class="product-card-hero">
-        <div class="card-hero-icon" id="heroCard2"><img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80" alt="Equipment" style="width:100%;height:100%;object-fit:cover;border-radius:2px;"></div>
+        <div class="card-hero-icon">🏋️</div>
         <div class="card-hero-label">Equipment</div>
         <div class="card-hero-name">POWER DUMBBELL SET</div>
         <div class="card-hero-price">$89.99</div>
@@ -1068,31 +989,31 @@ html<!DOCTYPE html>
   </div>
   <div class="categories-grid fade-in">
     <div class="category-tile">
-      <div class="cat-bg" id="catBg0" style="background:#0f1a00;"><img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Gym Equipment" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cat-bg" style="background:linear-gradient(135deg,#0f1a00,#1a2a00);">🏋️</div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Gym Equipment</div><div class="cat-count">120+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg1" style="background:#1a0a00;"><img src="https://images.unsplash.com/photo-1620188526357-8f8b45cbf76f?w=600&q=80" alt="Apparel" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cat-bg" style="background:linear-gradient(135deg,#1a0a00,#0a0a00);">👕</div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Apparel</div><div class="cat-count">85+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg2" style="background:#001a0a;"><img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?w=600&q=80" alt="Supplements" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cat-bg" style="background:linear-gradient(135deg,#001a0a,#000f1a);">💊</div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Supplements</div><div class="cat-count">60+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg3" style="background:#0a000f;"><img src="https://images.unsplash.com/photo-1598289431512-b97b0917affc?w=600&q=80" alt="Accessories" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cat-bg" style="background:linear-gradient(135deg,#0a000f,#1a000f);">🥊</div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Accessories</div><div class="cat-count">95+ products</div></div>
       <div class="cat-arrow">→</div>
     </div>
     <div class="category-tile">
-      <div class="cat-bg" id="catBg4" style="background:#1a1000;"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80" alt="Footwear" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></div>
+      <div class="cat-bg" style="background:linear-gradient(135deg,#1a1000,#0a1a00);">👟</div>
       <div class="cat-overlay"></div>
       <div class="cat-content"><div class="cat-name">Footwear</div><div class="cat-count">40+ products</div></div>
       <div class="cat-arrow">→</div>
@@ -1118,19 +1039,19 @@ html<!DOCTYPE html>
     <p class="section-desc">Request a consultation or training session with one of our expert coaches. Tell us your goals — we'll match you with the right program.</p>
     <ul class="service-list">
       <li class="service-item">
-        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/flag.svg" alt="Goal" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
+        <span class="service-icon">🎯</span>
         <div><div class="service-name">Goal Assessment</div><div class="service-desc">1-hour session to map your fitness journey</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/clipboard-document-list.svg" alt="Plan" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
+        <span class="service-icon">📋</span>
         <div><div class="service-name">Custom Training Plan</div><div class="service-desc">Personalized program based on your goals</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/trophy.svg" alt="Trophy" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
+        <span class="service-icon">🏆</span>
         <div><div class="service-name">Sport-Specific Coaching</div><div class="service-desc">Targeted programs for athletes and competitors</div></div>
       </li>
       <li class="service-item">
-        <span class="service-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/chat-bubble-left-right.svg" alt="Nutrition" style="width:28px;height:28px;filter:invert(80%) sepia(100%) saturate(500%) hue-rotate(45deg);"></span>
+        <span class="service-icon">💬</span>
         <div><div class="service-name">Nutrition Consultation</div><div class="service-desc">Diet and supplement guidance from experts</div></div>
       </li>
     </ul>
@@ -1161,7 +1082,7 @@ html<!DOCTYPE html>
         <div class="form-group"><label class="form-label">Preferred Date</label><input type="date" class="form-input"></div>
         <div class="form-group"><label class="form-label">Time Slot</label>
           <select class="form-select">
-            <option>Morning (8-12)</option>
+            <option>Morning (8–12)</option>
             <option>Afternoon (12–5)</option>
             <option>Evening (5–8)</option>
           </select>
@@ -1182,10 +1103,10 @@ html<!DOCTYPE html>
 
 <!-- FEATURES STRIP -->
 <div class="features-strip">
-  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/rocket-launch.svg" alt="Fast Delivery" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Fast Delivery</div><div class="feature-text">Free shipping on orders over $75</div></div>
-  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/lock-closed.svg" alt="Secure Checkout" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Secure Checkout</div><div class="feature-text">256-bit encrypted payments</div></div>
-  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/arrow-uturn-left.svg" alt="Easy Returns" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Easy Returns</div><div class="feature-text">30-day hassle-free returns</div></div>
-  <div class="feature-item"><div class="feature-icon"><img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/academic-cap.svg" alt="Certified Coaches" style="width:36px;height:36px;filter:brightness(0);"></div><div class="feature-title">Certified Coaches</div><div class="feature-text">All coaches are fully certified</div></div>
+  <div class="feature-item"><div class="feature-icon">🚀</div><div class="feature-title">Fast Delivery</div><div class="feature-text">Free shipping on orders over $75</div></div>
+  <div class="feature-item"><div class="feature-icon">🔒</div><div class="feature-title">Secure Checkout</div><div class="feature-text">256-bit encrypted payments</div></div>
+  <div class="feature-item"><div class="feature-icon">↩️</div><div class="feature-title">Easy Returns</div><div class="feature-text">30-day hassle-free returns</div></div>
+  <div class="feature-item"><div class="feature-icon">🏅</div><div class="feature-title">Certified Coaches</div><div class="feature-text">All coaches are fully certified</div></div>
 </div>
 
 <!-- CONTACT -->
@@ -1209,7 +1130,7 @@ html<!DOCTYPE html>
   <div class="footer-grid">
     <div class="footer-brand">
       <a href="#" class="nav-logo">Nova<span>Volt</span></a>
-      <p class="footer-tagline">Empowering athletes and fitness enthusiasts with premium products and expert coaching since 2023. Power your potential with NovaVolt.</p>
+      <p class="footer-tagline">Empowering athletes and fitness enthusiasts with premium products and expert coaching since 2020. Power your potential with NovaVolt.</p>
       <div class="footer-social">
         <a href="#" class="social-btn">𝕏</a>
         <a href="#" class="social-btn">in</a>
@@ -1252,7 +1173,7 @@ html<!DOCTYPE html>
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2026 <span>NovaVolt Fitness</span>. All rights reserved.</div>
+    <div class="footer-copy">© 2025 <span>NovaVolt Fitness</span>. All rights reserved.</div>
     <div class="footer-copy">Designed for peak performance.</div>
   </div>
 </footer>
@@ -1319,22 +1240,21 @@ function showToast(msg) {
 
 // PRODUCTS
 const products = [
-  {name:'Volt Dumbbell Set', cat:'equipment', price:89.99, img:'https://images.unsplash.com/photo-1638805981949-362b29fc5b19?w=400&q=80', badge:'new'},
-  {name:'ProWhey Protein X', cat:'supplements', price:49.99, img:'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=400&q=80', badge:''},
-  {name:'NV Performance Tee', cat:'apparel', price:34.99, img:'https://images.unsplash.com/photo-1620188526357-8f8b45cbf76f?w=400&q=80', badge:''},
-  {name:'Resistance Band Kit', cat:'equipment', price:29.99, img:'https://images.unsplash.com/photo-1598971861713-54ad16a7e72e?w=400&q=80', badge:'sale', oldPrice:39.99},
-  {name:'BCAA Storm 30srv', cat:'supplements', price:39.99, img:'https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=400&q=80', badge:'new'},
-  {name:'Volt Run V2 Shoes', cat:'apparel', price:129.99, img:'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80', badge:''},
-  {name:'Olympic Barbell 20kg', cat:'equipment', price:199.99, img:'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400&q=80', badge:''},
-  {name:'Pre-Workout Surge', cat:'supplements', price:44.99, img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80', badge:'sale', oldPrice:54.99},
+  {name:'Volt Dumbbell Set', cat:'equipment', price:89.99, icon:'🏋️', badge:'new'},
+  {name:'ProWhey Protein X', cat:'supplements', price:49.99, icon:'💊', badge:''},
+  {name:'NV Performance Tee', cat:'apparel', price:34.99, icon:'👕', badge:''},
+  {name:'Resistance Band Kit', cat:'equipment', price:29.99, icon:'🔄', badge:'sale', oldPrice:39.99},
+  {name:'BCAA Storm 30srv', cat:'supplements', price:39.99, icon:'⚡', badge:'new'},
+  {name:'Volt Run V2 Shoes', cat:'apparel', price:129.99, icon:'👟', badge:''},
+  {name:'Olympic Barbell 20kg', cat:'equipment', price:199.99, icon:'🏗️', badge:''},
+  {name:'Pre-Workout Surge', cat:'supplements', price:44.99, icon:'🔥', badge:'sale', oldPrice:54.99},
 ];
 function renderProducts(filtered = products) {
   const grid = document.getElementById('productsGrid');
-  grid.innerHTML = filtered.map((p,i) => `
-    <div class="product-card" data-cat="${p.cat}" data-idx="${products.indexOf(p)}">
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" data-cat="${p.cat}">
       ${p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge}</span>` : ''}
-      <div class="product-img" id="prodImg${products.indexOf(p)}">
-        <img src="${p.img}" alt="${p.name}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+      <div class="product-img">${p.icon}
         <button class="product-add-btn" onclick="addToCart('${p.name}',${p.price})">+</button>
       </div>
       <div class="product-info">
@@ -1359,60 +1279,32 @@ renderProducts();
 
 // COACHES
 const coaches = [
-  {name:'Marcus Reid', specialty:'Strength & Conditioning', bio:'10+ years coaching elite powerlifters and bodybuilders. Specializes in progressive overload and muscle hypertrophy.', tags:['Powerlifting','Bodybuilding','Nutrition'], img:'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=200&q=80'},
-  {name:'Alicia Torres', specialty:'HIIT & Cardio Training', bio:'Former marathon runner turned performance coach. Helps clients build cardiovascular endurance and shred body fat.', tags:['HIIT','Cardio','Weight Loss'], img:'https://images.unsplash.com/photo-1594381898411-846e7d193883?w=200&q=80'},
-  {name:'Devon Clarke', specialty:'Sports Performance', bio:'Worked with professional athletes across football, basketball, and track. Focuses on speed, agility, and explosive power.', tags:['Speed','Agility','Athletics'], img:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=200&q=80'},
-  {name:'Priya Nair', specialty:'Yoga & Mobility', bio:'Certified yoga instructor and mobility specialist. Helps athletes improve flexibility, recovery, and injury prevention.', tags:['Yoga','Flexibility','Recovery'], img:'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=200&q=80'},
+  {name:'Marcus Reid', specialty:'Strength & Conditioning', bio:'10+ years coaching elite powerlifters and bodybuilders. Specializes in progressive overload and muscle hypertrophy.', tags:['Powerlifting','Bodybuilding','Nutrition'], icon:'💪'},
+  {name:'Alicia Torres', specialty:'HIIT & Cardio Training', bio:'Former marathon runner turned performance coach. Helps clients build cardiovascular endurance and shred body fat.', tags:['HIIT','Cardio','Weight Loss'], icon:'🏃'},
+  {name:'Devon Clarke', specialty:'Sports Performance', bio:'Worked with professional athletes across football, basketball, and track. Focuses on speed, agility, and explosive power.', tags:['Speed','Agility','Athletics'], icon:'⚡'},
+  {name:'Priya Nair', specialty:'Yoga & Mobility', bio:'Certified yoga instructor and mobility specialist. Helps athletes improve flexibility, recovery, and injury prevention.', tags:['Yoga','Flexibility','Recovery'], icon:'🧘'},
 ];
 const coachGrid = document.getElementById('coachesGrid');
 const coachSelect = document.getElementById('coachSelect');
-const bkCoachSelect = document.getElementById('bkCoachSelect');
-coaches.forEach((c, i) => {
+coaches.forEach(c => {
   coachGrid.innerHTML += `
     <div class="coach-card">
-      <div class="coach-avatar" id="coachAvatar${i}">
-        <img src="${c.img}" alt="${c.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
-      </div>
+      <div class="coach-avatar">${c.icon}</div>
       <div class="coach-name">${c.name}</div>
       <div class="coach-specialty">${c.specialty}</div>
       <div class="coach-bio">${c.bio}</div>
       <div class="coach-tags">${c.tags.map(t=>`<span class="coach-tag">${t}</span>`).join('')}</div>
-      <a href="#" class="coach-btn" onclick="bookCoach('${c.name}');return false;">Book Session →</a>
+      <a href="#" class="coach-btn" onclick="bookCoach('${c.name}')">Book Session →</a>
     </div>`;
   coachSelect.innerHTML += `<option>${c.name}</option>`;
-  bkCoachSelect.innerHTML += `<option>${c.name}</option>`;
 });
-function openBookModal() {
-  document.getElementById('bookCoachName').textContent = 'Fill in your details to request a coaching session';
-  document.getElementById('bookingFormFields').style.display = '';
-  document.getElementById('bookingSuccess').classList.remove('show');
-  openModal('book');
-}
 function bookCoach(name) {
   document.getElementById('bookCoachName').textContent = `Booking with: ${name}`;
-  // Pre-select the coach in the modal dropdown
-  const sel = document.getElementById('bkCoachSelect');
-  for (let i = 0; i < sel.options.length; i++) {
-    if (sel.options[i].text === name) { sel.selectedIndex = i; break; }
-  }
-  document.getElementById('bookingFormFields').style.display = '';
-  document.getElementById('bookingSuccess').classList.remove('show');
   openModal('book');
 }
 function confirmBooking() {
-  const firstName = document.getElementById('bkFirstName').value.trim();
-  const email = document.getElementById('bkEmail').value.trim();
-  const service = document.getElementById('bkService').value;
-  if (!firstName) { showToast('⚠ Please enter your first name'); return; }
-  if (!email || !email.includes('@')) { showToast('⚠ Please enter a valid email'); return; }
-  if (!service) { showToast('⚠ Please select a service type'); return; }
-  document.getElementById('bookingFormFields').style.display = 'none';
-  document.getElementById('bookingSuccess').classList.add('show');
+  closeModal('book');
   showToast('✓ Booking request submitted!');
-  // Reset form
-  ['bkFirstName','bkLastName','bkEmail','bkPhone','bkNotes'].forEach(id => document.getElementById(id).value = '');
-  document.getElementById('bkService').selectedIndex = 0;
-  document.getElementById('bkCoachSelect').selectedIndex = 0;
 }
 
 // TESTIMONIALS
