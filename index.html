@@ -67,7 +67,7 @@
     text-decoration: none;
   }
   .nav-logo span { color: var(--volt); }
-  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.85rem;
@@ -86,6 +86,40 @@
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
   }
   .nav-cta:hover { background: var(--white); color: var(--dark) !important; }
+
+  /* NAV USER BADGE */
+  .nav-user-badge {
+    display: flex; align-items: center; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--light);
+  }
+  .nav-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--volt);
+    color: var(--dark);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(200,255,0,0.4);
+  }
+  .nav-logout-btn {
+    background: none; border: 1px solid rgba(255,255,255,0.15);
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+  }
+  .nav-logout-btn:hover { border-color: var(--volt); color: var(--volt); }
 
   .hero {
     min-height: 100vh;
@@ -834,6 +868,59 @@
   }
   .cart-icon:hover { border-color: var(--volt); }
 
+  /* LOGIN MODAL */
+  .login-modal-box {
+    width: 440px !important;
+    max-width: 95vw;
+  }
+  .login-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    margin-bottom: 28px;
+    display: block;
+  }
+  .login-logo span { color: var(--volt); }
+  .login-divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 20px 0;
+  }
+  .login-divider::before, .login-divider::after {
+    content: ''; flex: 1; height: 1px;
+    background: rgba(255,255,255,0.08);
+  }
+  .login-divider span { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .login-error {
+    background: rgba(255,77,28,0.1);
+    border: 1px solid rgba(255,77,28,0.3);
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    display: none;
+  }
+  .login-error.show { display: block; }
+  .login-footer-text {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+  .login-footer-text a { color: var(--volt); text-decoration: none; }
+  .login-footer-text a:hover { text-decoration: underline; }
+  .pw-wrapper { position: relative; }
+  .pw-toggle {
+    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: var(--muted); cursor: pointer;
+    font-size: 0.8rem; letter-spacing: 0.05em; font-family: 'Barlow Condensed', sans-serif;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .pw-toggle:hover { color: var(--volt); }
+
   /* ENHANCED BOOKING MODAL */
   .modal-book-box { width: 600px !important; max-height: 90vh; overflow-y: auto; }
   .modal-book-box::-webkit-scrollbar { width: 4px; }
@@ -858,6 +945,13 @@
   }
   .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+  /* Page blur when login modal is open */
+  body.login-locked #pageContent {
+    filter: blur(6px);
+    pointer-events: none;
+    user-select: none;
+  }
+
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
@@ -874,11 +968,40 @@
   }
 </style>
 </head>
-<body>
+<body class="login-locked">
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 <div class="toast" id="toast">✓ Added to cart!</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay active" id="modalLogin" style="z-index:5000;">
+  <div class="modal-box login-modal-box">
+    <span class="login-logo">Nova<span>Volt</span></span>
+    <div class="modal-title">Welcome Back</div>
+    <div class="modal-subtitle">Sign in to access your NovaVolt account</div>
+    <div class="login-error" id="loginError">Incorrect email or password. Please try again.</div>
+    <div class="form-group">
+      <label class="form-label">Email Address</label>
+      <input type="email" class="form-input" id="loginEmail" placeholder="you@email.com" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <div class="pw-wrapper">
+        <input type="password" class="form-input" id="loginPassword" placeholder="••••••••" autocomplete="current-password" style="padding-right:64px;">
+        <button class="pw-toggle" type="button" onclick="togglePw()">Show</button>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-bottom:20px;margin-top:-10px;">
+      <a href="#" style="font-size:0.78rem;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:0.05em;text-decoration:none;" onmouseover="this.style.color='var(--volt)'" onmouseout="this.style.color='var(--muted)'">Forgot password?</a>
+    </div>
+    <button class="submit-btn" id="loginBtn" onclick="handleLogin()">Sign In →</button>
+    <div class="login-divider"><span>or</span></div>
+    <div class="login-footer-text">Don't have an account? <a href="#" onclick="showToast('Registration coming soon!');return false;">Create one free</a></div>
+  </div>
+</div>
+
+<div id="pageContent">
 
 <div class="cart-icon" onclick="openModal('cart')">
   <img src="https://cdn.jsdelivr.net/npm/heroicons@2.0.18/24/outline/shopping-cart.svg" alt="Cart" style="width:18px;height:18px;filter:invert(1);vertical-align:middle;"> Cart <span class="cart-count" id="cartCount">0</span>
@@ -972,6 +1095,13 @@
     <li><a href="#book" onclick="openBookModal()">Book Session</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#" class="nav-cta" onclick="openModal('cart')">Cart (0)</a></li>
+    <li id="navUserArea" style="display:none;">
+      <div class="nav-user-badge">
+        <div class="nav-avatar" id="navAvatar">GA</div>
+        <span id="navUserName">Gabrielle Alexis</span>
+        <button class="nav-logout-btn" onclick="handleLogout()">Logout</button>
+      </div>
+    </li>
   </ul>
 </nav>
 
@@ -1259,7 +1389,67 @@
   </div>
 </footer>
 
+</div><!-- end #pageContent -->
+
 <script>
+// USER ACCOUNT
+const USER = {
+  name: 'Gabrielle Alexis',
+  email: 'gabrielle.alexis@novavolt.com',
+  password: 'novavolt2026',
+  initials: 'GA'
+};
+
+// LOGIN
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPassword').value;
+  const errEl = document.getElementById('loginError');
+  const btn = document.getElementById('loginBtn');
+
+  btn.textContent = 'Signing in…';
+  btn.style.opacity = '0.7';
+
+  setTimeout(() => {
+    if (email === USER.email && pw === USER.password) {
+      errEl.classList.remove('show');
+      document.getElementById('modalLogin').classList.remove('active');
+      document.body.classList.remove('login-locked');
+      document.getElementById('navUserArea').style.display = 'flex';
+      showToast('✓ Welcome back, Gabrielle!');
+    } else {
+      errEl.classList.add('show');
+      document.getElementById('loginPassword').value = '';
+    }
+    btn.textContent = 'Sign In →';
+    btn.style.opacity = '1';
+  }, 600);
+}
+
+function handleLogout() {
+  document.body.classList.add('login-locked');
+  document.getElementById('navUserArea').style.display = 'none';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('loginError').classList.remove('show');
+  document.getElementById('modalLogin').classList.add('active');
+  showToast('You have been signed out.');
+}
+
+function togglePw() {
+  const inp = document.getElementById('loginPassword');
+  const btn = document.querySelector('.pw-toggle');
+  if (inp.type === 'password') { inp.type = 'text'; btn.textContent = 'Hide'; }
+  else { inp.type = 'password'; btn.textContent = 'Show'; }
+}
+
+document.getElementById('loginPassword').addEventListener('keydown', e => {
+  if (e.key === 'Enter') handleLogin();
+});
+document.getElementById('loginEmail').addEventListener('keydown', e => {
+  if (e.key === 'Enter') document.getElementById('loginPassword').focus();
+});
+
 // CURSOR
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
@@ -1308,7 +1498,9 @@ function closeModal(type) {
   document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1)).classList.remove('active');
 }
 document.querySelectorAll('.modal-overlay').forEach(m => {
-  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('active'); });
+  m.addEventListener('click', e => {
+    if (e.target === m && m.id !== 'modalLogin') m.classList.remove('active');
+  });
 });
 
 // TOAST
@@ -1392,7 +1584,6 @@ function openBookModal() {
 }
 function bookCoach(name) {
   document.getElementById('bookCoachName').textContent = `Booking with: ${name}`;
-  // Pre-select the coach in the modal dropdown
   const sel = document.getElementById('bkCoachSelect');
   for (let i = 0; i < sel.options.length; i++) {
     if (sel.options[i].text === name) { sel.selectedIndex = i; break; }
@@ -1411,7 +1602,6 @@ function confirmBooking() {
   document.getElementById('bookingFormFields').style.display = 'none';
   document.getElementById('bookingSuccess').classList.add('show');
   showToast('✓ Booking request submitted!');
-  // Reset form
   ['bkFirstName','bkLastName','bkEmail','bkPhone','bkNotes'].forEach(id => document.getElementById(id).value = '');
   document.getElementById('bkService').selectedIndex = 0;
   document.getElementById('bkCoachSelect').selectedIndex = 0;
